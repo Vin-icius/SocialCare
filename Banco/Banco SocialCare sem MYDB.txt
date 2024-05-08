@@ -1,0 +1,229 @@
+
+-- Table estado
+CREATE TABLE IF NOT EXISTS estado (
+  est_id SERIAL PRIMARY KEY,
+  est_nome VARCHAR(50) NOT NULL
+);
+
+-- Table cidade
+CREATE TABLE IF NOT EXISTS cidade (
+  cid_id SERIAL PRIMARY KEY,
+  cid_nome VARCHAR(50) NOT NULL,
+  estado_est_id INT NOT NULL,
+  CONSTRAINT fk_cidade_estado1 FOREIGN KEY (estado_est_id) REFERENCES estado(est_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table pessoa
+CREATE TABLE IF NOT EXISTS pessoa (
+  pes_id SERIAL PRIMARY KEY,
+  pes_nome VARCHAR(50) NOT NULL,
+  pes_logradouro VARCHAR(50) NOT NULL,
+  pes_bairro VARCHAR(50) NOT NULL,
+  pes_cep VARCHAR(9) NOT NULL,
+  cidade_cid_id INT NOT NULL,
+  pes_email VARCHAR(256),
+  pes_ativo BOOLEAN NOT NULL,
+  CONSTRAINT fk_pessoa_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES cidade(cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table genero
+CREATE TABLE IF NOT EXISTS genero (
+  gen_id SERIAL PRIMARY KEY,
+  gen_nome VARCHAR(50) NOT NULL
+);
+
+-- Table fisica
+CREATE TABLE IF NOT EXISTS fisica (
+  pessoa_pes_id INT PRIMARY KEY,
+  fis_cpf VARCHAR(11) NOT NULL,
+  fis_rg VARCHAR(15) NOT NULL,
+  fis_dtnascimento TIMESTAMP NOT NULL,
+  genero_gen_id INT NOT NULL,
+  CONSTRAINT fk_fisica_pessoa FOREIGN KEY (pessoa_pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_fisica_genero1 FOREIGN KEY (genero_gen_id) REFERENCES genero(gen_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table juridica
+CREATE TABLE IF NOT EXISTS juridica (
+  pessoa_pes_id INT PRIMARY KEY,
+  jur_cnpj VARCHAR(18) NOT NULL,
+  jur_ie VARCHAR(14) NOT NULL,
+  jur_site VARCHAR(256),
+  CONSTRAINT fk_juridica_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table usuario
+CREATE TABLE IF NOT EXISTS usuario (
+  usu_id SERIAL PRIMARY KEY,
+  fisica_pessoa_pes_id INT NOT NULL,
+  usu_senha VARCHAR(20) NOT NULL,
+  usu_login VARCHAR(20) NOT NULL,
+  usu_nivel INT,
+  usu_ativo BOOLEAN,
+  CONSTRAINT fk_usuario_fisica1 FOREIGN KEY (fisica_pessoa_pes_id) REFERENCES fisica(pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+
+-- Table plano
+CREATE TABLE IF NOT EXISTS plano (
+  pla_id SERIAL PRIMARY KEY,
+  pla_dtinicio TIMESTAMP NOT NULL,
+  pla_dtfim TIMESTAMP,
+  pla_observacao VARCHAR(120),
+  usuario_usu_id INT NOT NULL,
+  CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES usuario(usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table acoes
+CREATE TABLE IF NOT EXISTS acoes (
+  aco_id SERIAL PRIMARY KEY,
+  plano_pla_id INT NOT NULL,
+  aco_dtacao TIMESTAMP NOT NULL,
+  aco_descricao VARCHAR(120) NOT NULL,
+  fisica_pessoa_pes_id INT NOT NULL,
+  CONSTRAINT fk_acoes_plano1 FOREIGN KEY (plano_pla_id) REFERENCES plano(pla_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_acoes_fisica1 FOREIGN KEY (fisica_pessoa_pes_id) REFERENCES fisica(pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table unidade
+CREATE TABLE IF NOT EXISTS unidade (
+  uni_id SERIAL PRIMARY KEY,
+  uni_nome VARCHAR(50) NOT NULL,
+  uni_endereco VARCHAR(50) NOT NULL,
+  cidade_cid_id INT NOT NULL,
+  uni_cep VARCHAR(9) NOT NULL,
+  CONSTRAINT fk_unidade_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES cidade(cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table visita
+CREATE TABLE IF NOT EXISTS visita (
+  vis_id SERIAL PRIMARY KEY,
+  unidade_uni_id INT NOT NULL,
+  vis_data VARCHAR(45) NOT NULL,
+  vis_duracao INT,
+  CONSTRAINT fk_visita_unidade1 FOREIGN KEY (unidade_uni_id) REFERENCES unidade(uni_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table envolvidos
+CREATE TABLE IF NOT EXISTS envolvidos (
+  visita_vis_id INT NOT NULL,
+  pessoa_pes_id INT NOT NULL,
+  PRIMARY KEY (visita_vis_id, pessoa_pes_id),
+  CONSTRAINT fk_visita_has_pessoa_visita1 FOREIGN KEY (visita_vis_id) REFERENCES visita(vis_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_visita_has_pessoa_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table transferencia
+CREATE TABLE IF NOT EXISTS transferencia (
+  tra_id SERIAL PRIMARY KEY,
+  unidade_uni_id INT NOT NULL,
+  tra_data TIMESTAMP NOT NULL,
+  tra_observacao VARCHAR(120),
+  CONSTRAINT fk_transferencia_unidade1 FOREIGN KEY (unidade_uni_id) REFERENCES unidade(uni_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table categoria
+CREATE TABLE IF NOT EXISTS categoria (
+  cat_id SERIAL PRIMARY KEY,
+  cat_nome VARCHAR(50) NOT NULL
+);
+
+-- Table produto
+CREATE TABLE IF NOT EXISTS produto (
+  pro_id SERIAL PRIMARY KEY,
+  pro_nome VARCHAR(50) NOT NULL,
+  categoria_cat_id INT NOT NULL,
+  CONSTRAINT fk_produto_categoria1 FOREIGN KEY (categoria_cat_id) REFERENCES categoria(cat_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table estoque
+CREATE TABLE IF NOT EXISTS estoque (
+  unidade_uni_id INT NOT NULL,
+  produto_pro_id INT NOT NULL,
+  est_quantidade DOUBLE PRECISION NOT NULL,
+  PRIMARY KEY (unidade_uni_id, produto_pro_id),
+  CONSTRAINT fk_unidade_has_produto_unidade1 FOREIGN KEY (unidade_uni_id) REFERENCES unidade(uni_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_unidade_has_produto_produto1 FOREIGN KEY (produto_pro_id) REFERENCES produto(pro_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table itens_transferencia
+CREATE TABLE IF NOT EXISTS itens_transferencia (
+  transferencia_tra_id INT PRIMARY KEY,
+  itt_quantidade DOUBLE PRECISION NOT NULL,
+  estoque_unidade_uni_id INT NOT NULL,
+  estoque_produto_pro_id INT NOT NULL,
+  CONSTRAINT fk_transferencia_has_produto_transferencia1 FOREIGN KEY (transferencia_tra_id) REFERENCES transferencia(tra_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_itens_transferencia_estoque1 FOREIGN KEY (estoque_unidade_uni_id, estoque_produto_pro_id) REFERENCES estoque(unidade_uni_id, produto_pro_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table doacao
+CREATE TABLE IF NOT EXISTS doacao (
+  doa_id SERIAL PRIMARY KEY,
+  pessoa_pes_id INT NOT NULL,
+  doa_data TIMESTAMP NOT NULL,
+  doa_observacao VARCHAR(120),
+  CONSTRAINT fk_doacao_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES pessoa(pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table itens_doacao
+CREATE TABLE IF NOT EXISTS itens_doacao (
+  doacao_doa_id INT PRIMARY KEY,
+  itd_quantidade DOUBLE PRECISION NOT NULL,
+  estoque_unidade_uni_id INT NOT NULL,
+  estoque_produto_pro_id INT NOT NULL,
+  CONSTRAINT fk_produto_has_doacao_doacao1 FOREIGN KEY (doacao_doa_id) REFERENCES doacao(doa_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_itens_doacao_estoque1 FOREIGN KEY (estoque_unidade_uni_id, estoque_produto_pro_id) REFERENCES estoque(unidade_uni_id, produto_pro_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table compra
+CREATE TABLE IF NOT EXISTS compra (
+  com_id SERIAL PRIMARY KEY,
+  com_data TIMESTAMP NOT NULL,
+  com_vlrotal DOUBLE PRECISION NOT NULL,
+  com_observacao VARCHAR(120),
+  juridica_pessoa_pes_id INT NOT NULL,
+  CONSTRAINT fk_compra_juridica1 FOREIGN KEY (juridica_pessoa_pes_id) REFERENCES juridica(pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table itens_compra
+CREATE TABLE IF NOT EXISTS itens_compra (
+  compra_com_id INT NOT NULL,
+  estoque_produto_pro_id INT NOT NULL,
+  estoque_unidade_uni_id INT NOT NULL,
+  itc_quantidade DOUBLE PRECISION NOT NULL,
+  itc_valor DOUBLE PRECISION NOT NULL,
+  PRIMARY KEY (compra_com_id, estoque_produto_pro_id, estoque_unidade_uni_id),
+  CONSTRAINT fk_produto_has_compra_compra1 FOREIGN KEY (compra_com_id) REFERENCES compra(com_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_itens_compra_estoque1 FOREIGN KEY (estoque_unidade_uni_id, estoque_produto_pro_id) REFERENCES estoque(unidade_uni_id, produto_pro_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table contas_pagar
+CREATE TABLE IF NOT EXISTS contas_pagar (
+  cpg_id SERIAL PRIMARY KEY,
+  compra_com_id INT NOT NULL,
+  cpg_dtemissao TIMESTAMP NOT NULL,
+  cpg_numparc INT NOT NULL,
+  cpg_dtvencto TIMESTAMP NOT NULL,
+  cpg_valor DOUBLE PRECISION NOT NULL,
+  cpg_descricao VARCHAR(120),
+  cpg_dtpagto TIMESTAMP,
+  cpg_valorpago DOUBLE PRECISION,
+  CONSTRAINT fk_contas_pagar_compra1 FOREIGN KEY (compra_com_id) REFERENCES compra(com_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+-- Table parametrizacao
+CREATE TABLE IF NOT EXISTS parametrizacao (
+  par_id INT PRIMARY KEY,
+  par_fantasia VARCHAR(50),
+  par_razao VARCHAR(50) NOT NULL,
+  par_cnpj VARCHAR(18) NOT NULL,
+  par_logradouro VARCHAR(50) NOT NULL,
+  par_bairro VARCHAR(50) NOT NULL,
+  par_cep VARCHAR(9) NOT NULL,
+  cidade_cid_id INT NOT NULL,
+  par_email VARCHAR(256) NOT NULL,
+  par_site VARCHAR(256),
+  par_logogrande VARCHAR(20),
+  par_logopequena VARCHAR(20),
+  CONSTRAINT fk_parametrizacao_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES cidade(cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
