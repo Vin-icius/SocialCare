@@ -8,11 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping(value="apis/security/")
 public class accessRestControl {
-
         @Autowired
         private userService usService;
 
@@ -21,16 +19,13 @@ public class accessRestControl {
             return "connected";
         }
 
-        /////////////////////////////////////////////////////////////////////////////////////////////
-        //////////////////////////// CRUD for User //////////////////////////////////////////////
-
         @PostMapping(value="/login")
         public ResponseEntity<Object> login(@RequestBody User user){
                 try {
                         String token="not authentic";
                         //acesso ao banco de dados para verificar a existencia do usuario
                         //comparar a senha
-                        if(user.getPassword()==123){
+                        if(user.getPassword()==""+123){
                                 token = JWTTokenProvider.getToken(user.getEmail(),""+user.getNivel());
                                 return ResponseEntity.ok(token);
                         }
@@ -45,6 +40,4 @@ public class accessRestControl {
         {
             return new ResponseEntity<>(usService.getById(usu_id),HttpStatus.OK);
         }
-
-
 }

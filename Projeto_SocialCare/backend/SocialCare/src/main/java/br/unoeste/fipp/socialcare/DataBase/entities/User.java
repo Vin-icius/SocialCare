@@ -14,15 +14,15 @@ public class User {
     @Column(name="usu_email")
     private String email;
     @Column(name="usu_senha")
-    private int password;
+    private String password;
     @Column(name="usu_nivel")
     private int nivel;
 
     public User() {
-        this(0L,"","",0,0);
+        this(0L,"","","",0);
     }
 
-    public User(Long id, String cpf, String email, int password, int nivel) {
+    public User(Long id, String cpf, String email, String password, int nivel) {
         this.id = id;
         this.cpf = cpf;
         this.email = email;
@@ -54,11 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

@@ -19,6 +19,8 @@ public class Storage {
     //Atributo proprio da tabela Estoque
     @Column(name="est_quantidade")
     private double quantidade;
+    @Id
+    private Long id;
 
     //Contructors
     public Storage(Unity unity, Product product, double quantidade) {
@@ -54,5 +56,13 @@ public class Storage {
 
     public void setEst_quantidade(double quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
