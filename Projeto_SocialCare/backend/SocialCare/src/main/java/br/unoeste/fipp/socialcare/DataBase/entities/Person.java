@@ -8,6 +8,7 @@ public abstract class Person {
     // TERÁ QUE INSTANCIAR A CLASSE SERVICE AQUI DENTRO DAS ENTIDADES PARA UTILIZAR OS SERVIÇOS, TANTO COMO AS DAOS (REPOSITORIOS)//
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Atributos proprios da tabela de pessoa
+    //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="pes_id")
