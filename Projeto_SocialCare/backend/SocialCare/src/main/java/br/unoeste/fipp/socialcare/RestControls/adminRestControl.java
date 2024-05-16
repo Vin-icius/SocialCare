@@ -15,6 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="apis/admin/")
 public class adminRestControl {
+    //Pessoas
+    @Autowired
+    private personService perService;
+
+    @PostMapping("/add-person")
+    public ResponseEntity<Object> addPerson (@RequestBody Person person) {
+        return new ResponseEntity<>(perService.addPerson(person), HttpStatus.OK);
+    }
+
+    @GetMapping("/delete-person")
+    public ResponseEntity<Object> deletePerson (@RequestParam(value="pes_id") Long pes_id) {
+        if(perService.deleteById(pes_id))
+            return new ResponseEntity<>("",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/get-person")
+    public ResponseEntity<Object> getPerson (@RequestParam(value="pes_id") Long pes_id) {
+        return new ResponseEntity<>(perService.getById(pes_id),HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-persons")
+    public ResponseEntity<Object> getAllPersons() {
+        return new ResponseEntity<>(perService.getAll(),HttpStatus.OK);
+    }
+    //---
 
     @Autowired
     private categoryProductService catService;
@@ -32,7 +59,6 @@ public class adminRestControl {
         public String connectionTest(){
             return "connected";
         }
-
 
     /////////////////////////////////////// ORDEM PARA INSTANCIAR //////////////////////////////
     //            CONTROL -> ENTITY -> SERVICES -> DAOS ( REPOSITORIES )                      //

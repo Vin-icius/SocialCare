@@ -5,13 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <title>Formulário de Cadastro</title>
         <link rel="stylesheet" type="text/css" href="/css/style.css">
-        <script src="/js/script.js"></script>
+        <script src="/html/usuario/usuario.js"></script>
     </head>
     <body>
         <div class="container">
             <div class="content">
                 <div id="cadastro">
-                    <form method="post" action="" onsubmit="return validarFormulario()">
+                    <form method="post" id="fdados" enctype="multipart/form-data"></form>
                         <h1>Cadastro</h1> 
 
                         <p> 
@@ -35,7 +35,7 @@
                         </p>
 
                         <p> 
-                            <input type="submit" value="Cadastrar"/> 
+                            <button onclick="cadastrarPessoa()">Cadastrar</button>
                         </p>
 
                         <p class="link">  

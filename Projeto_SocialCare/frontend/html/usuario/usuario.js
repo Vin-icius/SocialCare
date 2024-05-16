@@ -67,3 +67,24 @@ function validarCPF(cpf) {
         return false;   
     return true;   
 }
+
+function cadastrarPessoa() {
+    const URL = "http://localhost:8080/apis/admin/add-person";
+    var fdados = document.getElementById("fdados");
+    var jsontext = JSON.stringify(Object.fromEntries(new FormData(fdados)));
+    fetch(URL, {
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        method: 'POST', body: jsontext
+    })
+        .then(resp=> {
+            return resp.text();
+        })
+        .then(text=> {
+            alert(text);
+        }).catch(error=> {
+            console.error(error);
+        });
+}
