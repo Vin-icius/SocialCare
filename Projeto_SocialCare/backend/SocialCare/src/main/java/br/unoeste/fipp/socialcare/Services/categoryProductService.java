@@ -34,4 +34,14 @@ public class categoryProductService {
     public List<CategoryProduct> getAll() {
         return categoryProductRepo.findAll();
     }
+    public boolean findByIdB(Long id)
+    {
+        try{
+            categoryProductRepo.findById(id);
+
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
 }
