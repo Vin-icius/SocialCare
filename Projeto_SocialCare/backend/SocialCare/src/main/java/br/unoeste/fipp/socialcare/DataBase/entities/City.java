@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="cidade")
 public class City {
-
     //Atributos proprios da tabela cidade
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

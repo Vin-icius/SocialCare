@@ -9,29 +9,29 @@ import java.util.List;
 
 @Service
 public class categoryProductService {
-
     @Autowired
-    private categoryProductRepository catProdRepo;
-    public CategoryProduct getById(Long id){
-        CategoryProduct cat = catProdRepo.findById(id).get();
-        return cat;
+    private categoryProductRepository categoryProductRepo;
+
+    public CategoryProduct addCategoryProduct (CategoryProduct categoryProduct) {
+        return categoryProductRepo.save(categoryProduct);
     }
 
-    public List<CategoryProduct> getAll(){
-        return catProdRepo.findAll();
-    }
-
-    public CategoryProduct addCategoryProduct(CategoryProduct cat){
-        return catProdRepo.save(cat);
-    }
-
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
-            catProdRepo.deleteById(id);
+            categoryProductRepo.deleteById(id);
         }
         catch (Exception e){
             return false;
         }
         return true;
+    }
+
+    public CategoryProduct getById (Long id) {
+        CategoryProduct categoryProduct = categoryProductRepo.findById(id).get();
+        return categoryProduct;
+    }
+
+    public List<CategoryProduct> getAll() {
+        return categoryProductRepo.findAll();
     }
 }

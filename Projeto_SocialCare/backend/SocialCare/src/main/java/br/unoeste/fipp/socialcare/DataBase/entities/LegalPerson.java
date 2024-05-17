@@ -6,8 +6,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="juridica")
 public class LegalPerson extends Person{
-
-
     @ManyToOne
     @JoinColumn(name="genero_gen_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
     private Gender genero;
@@ -18,7 +16,6 @@ public class LegalPerson extends Person{
     private String ie;
     @Column(name="jur_site")
     private String site;
-
 
     public LegalPerson() {
         this(null,"","","");

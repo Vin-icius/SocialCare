@@ -9,23 +9,14 @@ import java.util.List;
 
 @Service
 public class userService {
-
     @Autowired
     private userRepository userRepo;
-    public User getById(Long id){
-        User user = userRepo.findById(id).get();
-        return user;
-    }
 
-    public List<User> getAll(){
-        return userRepo.findAll();
-    }
-
-    public User addUser(User user){
+    public User addUser (User user) {
         return userRepo.save(user);
     }
 
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
             userRepo.deleteById(id);
         }
@@ -33,5 +24,14 @@ public class userService {
             return false;
         }
         return true;
+    }
+
+    public User getById (Long id) {
+        User user = userRepo.findById(id).get();
+        return user;
+    }
+
+    public List<User> getAll() {
+        return userRepo.findAll();
     }
 }

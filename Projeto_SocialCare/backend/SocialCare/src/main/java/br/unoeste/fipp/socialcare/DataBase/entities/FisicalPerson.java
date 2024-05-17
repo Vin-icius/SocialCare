@@ -5,9 +5,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="fisica")
 public class FisicalPerson extends Person{
-
-
-
     //Foreign Key
     @ManyToOne
     @JoinColumn(name="pessoa_pes_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL

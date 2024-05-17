@@ -1,7 +1,7 @@
 package br.unoeste.fipp.socialcare.Services;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.FisicalPerson;
-import br.unoeste.fipp.socialcare.DataBase.repositories.giverRepository;
+import br.unoeste.fipp.socialcare.DataBase.repositories.fisicalPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,21 +10,13 @@ import java.util.List;
 @Service
 public class fisicalPersonService {
     @Autowired
-    private giverRepository giverRepo;
-    public FisicalPerson getById(Long id){
-        FisicalPerson fisicalPerson = giverRepo.findById(id).get();
-        return fisicalPerson;
-    }
+    private fisicalPersonRepository giverRepo;
 
-    public List<FisicalPerson> getAll(){
-        return giverRepo.findAll();
-    }
-
-    public FisicalPerson addGiver(FisicalPerson fisicalPerson){
+    public FisicalPerson addFisicalPerson (FisicalPerson fisicalPerson) {
         return giverRepo.save(fisicalPerson);
     }
 
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
             giverRepo.deleteById(id);
         }
@@ -32,5 +24,14 @@ public class fisicalPersonService {
             return false;
         }
         return true;
+    }
+
+    public FisicalPerson getById (Long id) {
+        FisicalPerson fisicalPerson = giverRepo.findById(id).get();
+        return fisicalPerson;
+    }
+
+    public List<FisicalPerson> getAll (){
+        return giverRepo.findAll();
     }
 }

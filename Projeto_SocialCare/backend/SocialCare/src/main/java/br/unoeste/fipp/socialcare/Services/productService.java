@@ -9,30 +9,29 @@ import java.util.List;
 
 @Service
 public class productService {
-
     @Autowired
-    private productRepository prodRepo;
+    private productRepository productRepo;
 
-    public Product getById(Long id){
-        Product product = prodRepo.findById(id).get();
-        return product;
+    public Product addProduct (Product product) {
+        return productRepo.save(product);
     }
 
-    public List<Product> getAll(){
-        return prodRepo.findAll();
-    }
-
-    public Product addProduct(Product prod){
-        return prodRepo.save(prod);
-    }
-
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
-            prodRepo.deleteById(id);
+            productRepo.deleteById(id);
         }
         catch (Exception e){
             return false;
         }
         return true;
+    }
+
+    public Product getById (Long id) {
+        Product product = productRepo.findById(id).get();
+        return product;
+    }
+
+    public List<Product> getAll() {
+        return productRepo.findAll();
     }
 }

@@ -9,30 +9,29 @@ import java.util.List;
 
 @Service
 public class storageService {
-
     @Autowired
-    private storageRepository storeRepo;
+    private storageRepository storageRepo;
 
-    public Storage getById(Long id){
-        Storage storage = storeRepo.findById(id).get();
-        return storage;
+    public Storage addStorage (Storage storage) {
+        return storageRepo.save(storage);
     }
 
-    public List<Storage> getAll(){
-        return storeRepo.findAll();
-    }
-
-    public Storage addStorage(Storage storage){
-        return storeRepo.save(storage);
-    }
-
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
-            storeRepo.deleteById(id);
+            storageRepo.deleteById(id);
         }
         catch (Exception e){
             return false;
         }
         return true;
+    }
+
+    public Storage getById (Long id) {
+        Storage storage = storageRepo.findById(id).get();
+        return storage;
+    }
+
+    public List<Storage> getAll() {
+        return storageRepo.findAll();
     }
 }

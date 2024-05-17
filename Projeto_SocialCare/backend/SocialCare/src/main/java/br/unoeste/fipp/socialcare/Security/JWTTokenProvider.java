@@ -57,5 +57,4 @@ public class JWTTokenProvider {
         }
         return claims;        
     }
-
 }

@@ -11,20 +11,12 @@ import java.util.List;
 public class personService {
     @Autowired
     private personRepository personRepo;
-    public Person getById(Long id){
-        Person person = personRepo.findById(id).get();
-        return person;
+
+    public Person addPerson (Person person) {
+        return personRepo.save(person);
     }
 
-    public List<Person> getAll(){
-        return personRepo.findAll();
-    }
-
-    public Person addPerson(Person user){
-        return personRepo.save(user);
-    }
-
-    public boolean deleteById(Long id){
+    public boolean deleteById (Long id) {
         try{
             personRepo.deleteById(id);
         }
@@ -32,5 +24,14 @@ public class personService {
             return false;
         }
         return true;
+    }
+
+    public Person getById (Long id) {
+        Person person = personRepo.findById(id).get();
+        return person;
+    }
+
+    public List<Person> getAll() {
+        return personRepo.findAll();
     }
 }

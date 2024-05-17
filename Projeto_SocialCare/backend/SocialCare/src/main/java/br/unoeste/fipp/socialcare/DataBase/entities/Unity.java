@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="unidade")
 public class Unity {
-
     //Atributos proprios da tabela unidade
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

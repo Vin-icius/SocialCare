@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="categoria")
 public class CategoryProduct {
-
     //Atributos proprios da tabela de categoria
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +12,6 @@ public class CategoryProduct {
     private Long id;
     @Column(name="cat_nome")
     private String nome;
-
 
     public CategoryProduct() {
         this(0L,"");
