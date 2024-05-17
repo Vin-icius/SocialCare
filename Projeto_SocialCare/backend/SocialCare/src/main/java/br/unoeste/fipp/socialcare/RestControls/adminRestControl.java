@@ -264,12 +264,26 @@ public class adminRestControl {
         }
     }
 
+    @PostMapping("/update-user")
+    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+        try {
+            return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @GetMapping("/delete-user")
-    public ResponseEntity<Object> deleteUser(@RequestParam(value="pro_id") Long pro_id) {
-        if(userService.deleteById(pro_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
-        else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Object> deleteUser(@RequestParam(value="id") Long id) {
+        try {
+            if (userService.deleteById(id)) {
+                return new ResponseEntity<>("", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/get-user")

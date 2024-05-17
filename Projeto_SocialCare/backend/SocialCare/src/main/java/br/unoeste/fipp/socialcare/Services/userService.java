@@ -19,7 +19,25 @@ public class userService {
         return userRepo.save(user);
     }
 
+    public User updateUser(User user) {
+        User existingUser = userRepo.findById(user.getId()).orElse(null);
+        if (existingUser == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        if (existingUser.hasFullAccess() && !user.isActive() && userRepo.countByFullAccessAndActive() <= 1) {
+            throw new IllegalArgumentException("Cannot deactivate the last user with full access");
+        }
+        return userRepo.save(user);
+    }
+
     public boolean deleteById(Long id) {
+        User user = userRepo.findById(id).orElse(null);
+        if (user == null) {
+            return false;
+        }
+        if (user.hasFullAccess() && userRepo.countByFullAccessAndActive() <= 1) {
+            throw new IllegalArgumentException("Cannot delete the last user with full access");
+        }
         try {
             userRepo.deleteById(id);
         } catch (Exception e) {

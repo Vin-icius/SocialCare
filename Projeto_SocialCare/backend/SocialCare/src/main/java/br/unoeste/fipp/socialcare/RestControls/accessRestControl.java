@@ -26,7 +26,7 @@ public class accessRestControl {
                         //acesso ao banco de dados para verificar a existencia do usuario
                         //comparar a senha
                         if(user.getPassword()==""+123){
-                                token = JWTTokenProvider.getToken(user.getEmail(),""+user.getNivel());
+                                token = JWTTokenProvider.getToken(user.getEmail(),""+user.getLevel());
                                 return ResponseEntity.ok(token);
                         }
                         return ResponseEntity.badRequest().body(token);
