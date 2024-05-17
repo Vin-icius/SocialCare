@@ -43,6 +43,59 @@ public class adminRestControl {
     }
     //---
 
+
+    //State
+    @Autowired
+    private stateService stateService;
+    @PostMapping("/add-state")
+    public ResponseEntity<Object> addState (@RequestBody State state) {
+        return new ResponseEntity<>(stateService.addState(state), HttpStatus.OK);
+    }
+    @GetMapping("/delete-state")
+    public ResponseEntity<Object> deleteState (@RequestParam(value="est_id") Long est_id) {
+        if(stateService.deleteById(est_id))
+            return new ResponseEntity<>("",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    }
+    @GetMapping("/get-state")
+    public ResponseEntity<Object> getState (@RequestParam(value="est_id") Long est_id) {
+        return new ResponseEntity<>(stateService.getById(est_id),HttpStatus.OK);
+    }
+    @GetMapping("/get-all-states")
+    public ResponseEntity<Object> getAllStates() {
+        return new ResponseEntity<>(stateService.getAll(),HttpStatus.OK);
+    }
+    //---
+
+    //City
+    @Autowired
+    private cityService cityService;
+    @PostMapping("/add-city")
+    public ResponseEntity<Object> addCity (@RequestBody City city) {
+        return new ResponseEntity<>(cityService.addCity(city), HttpStatus.OK);
+    }
+    @GetMapping("/delete-city")
+    public ResponseEntity<Object> deleteCity (@RequestParam(value="cid_id") Long cid_id) {
+        if(cityService.deleteById(cid_id))
+            return new ResponseEntity<>("",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    }
+    @GetMapping("/get-city")
+    public ResponseEntity<Object> getCity (@RequestParam(value="cid_id") Long cid_id) {
+        return new ResponseEntity<>(cityService.getById(cid_id),HttpStatus.OK);
+    }
+    @GetMapping("/get-all-cities")
+    public ResponseEntity<Object> getAllCities() {
+        return new ResponseEntity<>(cityService.getAll(),HttpStatus.OK);
+    }
+    //---
+
+
+
+
+
     @Autowired
     private categoryProductService catService;
 
