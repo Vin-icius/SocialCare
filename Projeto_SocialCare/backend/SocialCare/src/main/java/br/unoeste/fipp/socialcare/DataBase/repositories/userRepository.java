@@ -9,4 +9,6 @@ public interface userRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT COUNT(u) FROM User u WHERE u.level = 1 AND u.active = true")
     long countByFullAccessAndActive();
+
+    User findByEmail(String email);
 }

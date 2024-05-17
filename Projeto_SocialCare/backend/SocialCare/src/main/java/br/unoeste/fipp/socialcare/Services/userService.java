@@ -50,6 +50,10 @@ public class userService {
         return userRepo.findById(id).orElse(null);
     }
 
+    public User getByEmail(String email) {
+        return userRepo.findByEmail(email);
+    }
+
     public List<User> getAll() {
         return userRepo.findAll();
     }

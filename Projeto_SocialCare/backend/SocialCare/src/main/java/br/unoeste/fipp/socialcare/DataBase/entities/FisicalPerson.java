@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class FisicalPerson extends Person{
     //Foreign Key
     @ManyToOne
-    @JoinColumn(name="pessoa_pes_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
+    @JoinColumn(name="pessoa_pes_id", nullable = false)
     private Person pessoa;
 
     //Atributos proprios da tabela de pessoa fisica
@@ -20,7 +20,7 @@ public class FisicalPerson extends Person{
 
     //Foreign Key
     @ManyToOne
-    @JoinColumn(name="genero_gen_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
+    @JoinColumn(name="genero_gen_id", nullable = false)
     private Gender genero;
 
     public FisicalPerson() {
