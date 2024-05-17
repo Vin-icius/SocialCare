@@ -116,12 +116,12 @@ public class adminRestControl {
     @Autowired
     private legalPersonService legalPersonService;
 
-    @PostMapping("/add-fisical-person")
+    @PostMapping("/add-legal-person")
     public ResponseEntity<Object> addLegalPerson (@RequestBody LegalPerson legalPerson) {
         return new ResponseEntity<>(legalPersonService.addLegalPerson(legalPerson), HttpStatus.OK);
     }
 
-    @GetMapping("/delete-fisical-person")
+    @GetMapping("/delete-legal-person")
     public ResponseEntity<Object> deleteLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
         if(legalPersonService.deleteById(pessoa_pes_id))
             return new ResponseEntity<>("",HttpStatus.OK);
@@ -129,12 +129,12 @@ public class adminRestControl {
             return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping("/get-fisical-person")
+    @GetMapping("/get-legal-person")
     public ResponseEntity<Object> getLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
         return new ResponseEntity<>(legalPersonService.getById(pessoa_pes_id),HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-fisical-persons")
+    @GetMapping("/get-all-legal-persons")
     public ResponseEntity<Object> getAllLegalPersons() {
         return new ResponseEntity<>(legalPersonService.getAll(),HttpStatus.OK);
     }
@@ -257,7 +257,11 @@ public class adminRestControl {
 
     @PostMapping("/add-user")
     public ResponseEntity<Object> addUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/delete-user")

@@ -72,12 +72,12 @@ public class userRestControl {
     @Autowired
     private legalPersonService legalPersonService;
 
-    @GetMapping("/get-fisical-person")
+    @GetMapping("/get-legal-person")
     public ResponseEntity<Object> getLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
         return new ResponseEntity<>(legalPersonService.getById(pessoa_pes_id),HttpStatus.OK);
     }
 
-    @GetMapping("/get-all-fisical-persons")
+    @GetMapping("/get-all-legal-persons")
     public ResponseEntity<Object> getAllLegalPersons() {
         return new ResponseEntity<>(legalPersonService.getAll(),HttpStatus.OK);
     }

@@ -12,23 +12,24 @@ public class userService {
     @Autowired
     private userRepository userRepo;
 
-    public User addUser (User user) {
+    public User addUser(User user) {
+        if (userRepo.existsByEmail(user.getEmail())) {
+            throw new IllegalArgumentException("Login already exists");
+        }
         return userRepo.save(user);
     }
 
-    public boolean deleteById (Long id) {
-        try{
+    public boolean deleteById(Long id) {
+        try {
             userRepo.deleteById(id);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    public User getById (Long id) {
-        User user = userRepo.findById(id).get();
-        return user;
+    public User getById(Long id) {
+        return userRepo.findById(id).orElse(null);
     }
 
     public List<User> getAll() {
