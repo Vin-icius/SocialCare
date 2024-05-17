@@ -13,6 +13,7 @@ public class productService {
     private productRepository productRepo;
 
     public Product addProduct (Product product) {
+
         return productRepo.save(product);
     }
 
@@ -34,4 +35,6 @@ public class productService {
     public List<Product> getAll() {
         return productRepo.findAll();
     }
+
+
 }
