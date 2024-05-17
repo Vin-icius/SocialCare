@@ -17,7 +17,7 @@ public class FisicalPerson extends Person{
     @Column(name="fis_cpf")
     private String cpf;
     @Column(name="fis_rg")
-    private String nome;
+    private String rg;
     @Column(name="fis_dtnasc")
     private String dtnasc;
 
@@ -27,15 +27,17 @@ public class FisicalPerson extends Person{
     private Gender genero;
 
     public FisicalPerson() {
-        this(null,"","","",null);
+        this(0L,"","","","","",0,null,"","","",null);
     }
 
-    public FisicalPerson(Person person, String cpf, String rg, String dtnasc, Gender gender) {
-        this.pessoa=person;
-        this.cpf=cpf;
-        this.nome=rg;
-        this.dtnasc=dtnasc;
-        this.genero=gender;
+    public FisicalPerson(Long id, String nome, String logradouro, String bairro, String cep,
+                         String email, int ativo, City city, String cpf, String rg, String dtnasc,
+                         Gender genero) {
+        super(id, nome, logradouro, bairro, cep, email, ativo, city);
+        this.cpf = cpf;
+        this.rg = rg;
+        this.dtnasc = dtnasc;
+        this.genero = genero;
     }
 
     public Person getPessoa() {
@@ -54,14 +56,12 @@ public class FisicalPerson extends Person{
         this.cpf = cpf;
     }
 
-    @Override
-    public String getNome() {
-        return nome;
+    public String getRg() {
+        return rg;
     }
 
-    @Override
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setRg(String rg) {
+        this.rg = rg;
     }
 
     public String getDtnasc() {
@@ -79,4 +79,86 @@ public class FisicalPerson extends Person{
     public void setGenero(Gender genero) {
         this.genero = genero;
     }
+
+    @Override
+    public String getNome() {
+        return super.getNome();
+    }
+
+    @Override
+    public void setNome(String nome) {
+        super.setNome(nome);
+    }
+
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
+
+    @Override
+    public void setId(Long id) {
+        super.setId(id);
+    }
+
+    @Override
+    public String getLogradouro() {
+        return super.getLogradouro();
+    }
+
+    @Override
+    public void setLogradouro(String logradouro) {
+        super.setLogradouro(logradouro);
+    }
+
+    @Override
+    public String getBairro() {
+        return super.getBairro();
+    }
+
+    @Override
+    public void setBairro(String bairro) {
+        super.setBairro(bairro);
+    }
+
+    @Override
+    public String getCep() {
+        return super.getCep();
+    }
+
+    @Override
+    public void setCep(String cep) {
+        super.setCep(cep);
+    }
+
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    @Override
+    public void setEmail(String email) {
+        super.setEmail(email);
+    }
+
+    @Override
+    public int getAtivo() {
+        return super.getAtivo();
+    }
+
+    @Override
+    public void setAtivo(int ativo) {
+        super.setAtivo(ativo);
+    }
+
+    @Override
+    public City getCity() {
+        return super.getCity();
+    }
+
+    @Override
+    public void setCity(City city) {
+        super.setCity(city);
+    }
+
+
 }

@@ -1,6 +1,8 @@
 package br.unoeste.fipp.socialcare.DataBase.entities;
 
+import br.unoeste.fipp.socialcare.DataBase.repositories.stateRepository;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="estado")
@@ -13,6 +15,7 @@ public class State {
     private Long id;
     @Column(name="est_nome")
     private String nome;
+
 
     public State(Long id, String nome) {
         this.id = id;
@@ -38,4 +41,5 @@ public class State {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
 }

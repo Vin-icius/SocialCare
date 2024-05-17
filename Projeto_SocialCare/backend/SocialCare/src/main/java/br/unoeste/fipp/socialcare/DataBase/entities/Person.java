@@ -3,6 +3,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="pessoa")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // TERÁ QUE INSTANCIAR A CLASSE SERVICE AQUI DENTRO DAS ENTIDADES PARA UTILIZAR OS SERVIÇOS, TANTO COMO AS DAOS (REPOSITORIOS)//
@@ -13,6 +14,8 @@ public abstract class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="pes_id")
     private Long id;
+
+    //@NotBlank(message = "Nome não pode ser vazio")
     @Column(name="pes_nome")
     private String nome;
     @Column(name="pes_logradouro")

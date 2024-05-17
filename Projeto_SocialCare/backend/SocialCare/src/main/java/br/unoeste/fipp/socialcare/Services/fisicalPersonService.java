@@ -1,7 +1,7 @@
 package br.unoeste.fipp.socialcare.Services;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.FisicalPerson;
-import br.unoeste.fipp.socialcare.DataBase.repositories.giverRepository;
+import br.unoeste.fipp.socialcare.DataBase.repositories.fisicalPersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,8 @@ import java.util.List;
 @Service
 public class fisicalPersonService {
     @Autowired
-    private giverRepository giverRepo;
+    private fisicalPersonRepository giverRepo;
+
     public FisicalPerson getById(Long id){
         FisicalPerson fisicalPerson = giverRepo.findById(id).get();
         return fisicalPerson;
