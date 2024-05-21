@@ -19,9 +19,9 @@ public class User {
     private boolean active;
 
     //Foreign Key
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name="fisica_pessoa_pes_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
-    private FisicalPerson fisicalPerson;
+    private FisicalPerson fisicalPerson;*/
 
     public User() {
         this(0L,"","",0);
@@ -76,13 +76,13 @@ public class User {
         this.active = active;
     }
 
-    public FisicalPerson getFisicalPerson() {
+    /*public FisicalPerson getFisicalPerson() {
         return fisicalPerson;
     }
 
     public void setFisicalPerson(FisicalPerson fisicalPerson) {
         this.fisicalPerson = fisicalPerson;
-    }
+    }*/
 
     public boolean hasFullAccess() {
         return this.level == 1;
