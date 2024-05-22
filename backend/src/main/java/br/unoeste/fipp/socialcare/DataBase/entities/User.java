@@ -22,19 +22,20 @@ public class User {
 
     //Foreign Key
     @ManyToOne
-    @JoinColumn(name="fisica_pessoa_pes_id", nullable = true) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
+    @JoinColumn(name="fisica_pessoa_pes_id", nullable = true)
     private FisicalPerson fisicalPerson;
 
     public User() {
-        this(0L,"","",0);
+        this(0L,"","");
+        this.level = 2;
         this.active = true;
     }
 
-    public User(Long id, String email, String password, int level) {
+    public User(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
-        this.level = level;
+        this.level = 2;
         this.active = true;
     }
 
