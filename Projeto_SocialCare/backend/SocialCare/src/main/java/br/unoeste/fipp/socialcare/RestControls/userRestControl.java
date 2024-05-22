@@ -113,8 +113,6 @@ public class userRestControl {
     }
     //---
 
-
-
     //State
     @Autowired
     private stateService stateService;

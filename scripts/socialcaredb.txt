@@ -5617,6 +5617,10 @@ CREATE TABLE public.genero (
   gen_nome VARCHAR(50) NOT NULL
 );
 
+INSERT INTO public.genero (gen_nome) VALUES ('Masculino');
+INSERT INTO public.genero (gen_nome) VALUES ('Feminino');
+INSERT INTO public.genero (gen_nome) VALUES ('Não-Binário');
+
 CREATE TABLE public.fisica (
   pessoa_pes_id INT PRIMARY KEY,
   fis_cpf VARCHAR(11) NOT NULL,
