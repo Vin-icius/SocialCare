@@ -2,6 +2,8 @@ package br.unoeste.fipp.socialcare.DataBase.entities;
 
 import jakarta.persistence.*;
 
+import java.util.regex.Pattern;
+
 @Entity
 @Table(name="usuario")
 public class User {
@@ -19,9 +21,9 @@ public class User {
     private boolean active;
 
     //Foreign Key
-    /*@ManyToOne
-    @JoinColumn(name="fisica_pessoa_pes_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
-    private FisicalPerson fisicalPerson;*/
+    @ManyToOne
+    @JoinColumn(name="fisica_pessoa_pes_id", nullable = true) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
+    private FisicalPerson fisicalPerson;
 
     public User() {
         this(0L,"","",0);
@@ -76,15 +78,29 @@ public class User {
         this.active = active;
     }
 
-    /*public FisicalPerson getFisicalPerson() {
+    public FisicalPerson getFisicalPerson() {
         return fisicalPerson;
     }
 
     public void setFisicalPerson(FisicalPerson fisicalPerson) {
         this.fisicalPerson = fisicalPerson;
-    }*/
+    }
 
     public boolean hasFullAccess() {
         return this.level == 1;
+    }
+
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
+    }
+
+    public static boolean isValidPassword(String password) {
+        // A senha deve ter pelo menos 8 caracteres
+        // Conter pelo menos uma letra maiúscula, uma letra minúscula, um dígito e um caractere especial
+        String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        Pattern pattern = Pattern.compile(passwordRegex);
+        return pattern.matcher(password).matches();
     }
 }

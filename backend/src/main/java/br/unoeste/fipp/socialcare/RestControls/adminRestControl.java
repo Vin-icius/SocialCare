@@ -257,6 +257,13 @@ public class adminRestControl {
 
     @PostMapping("/add-user")
     public ResponseEntity<Object> addUser(@RequestBody User user) {
+        if (!User.isValidEmail(user.getEmail())) {
+            return ResponseEntity.badRequest().body("Email inválido");
+        }
+        if (!User.isValidPassword(user.getPassword())) {
+            return ResponseEntity.badRequest().body("Senha inválida");
+        }
+
         try {
             return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
@@ -266,6 +273,13 @@ public class adminRestControl {
 
     @PostMapping("/update-user")
     public ResponseEntity<Object> updateUser(@RequestBody User user) {
+        if (!User.isValidEmail(user.getEmail())) {
+            return ResponseEntity.badRequest().body("Email inválido");
+        }
+        if (!User.isValidPassword(user.getPassword())) {
+            return ResponseEntity.badRequest().body("Senha inválida");
+        }
+
         try {
             return new ResponseEntity<>(userService.updateUser(user), HttpStatus.OK);
         } catch (IllegalArgumentException e) {
