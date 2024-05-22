@@ -5641,7 +5641,7 @@ CREATE TABLE public.juridica (
 
 CREATE TABLE public.usuario (
   usu_id SERIAL PRIMARY KEY,
-  fisica_pessoa_pes_id INT NOT NULL,
+  fisica_pessoa_pes_id INT,
   usu_email VARCHAR(256) NOT NULL,
   usu_senha VARCHAR(20) NOT NULL,
   usu_nivel INT,
