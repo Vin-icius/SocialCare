@@ -6,9 +6,9 @@
     <link rel="stylesheet" href="cssPar.css">
     <title>Cadastro de Parametrização</title>
 </head>
-<body>
+<body onload="openParam()">
     <h1>Cadastro de Parametrização</h1>
-    <form action="processar_cadastro.php" method="POST" enctype="multipart/form-data">
+    <form  id="formCadPar" method="POST" enctype="multipart/form-data">
         <fieldset>
             <legend>Dados da Empresa</legend>
             <label for="par_fantasia">Nome Fantasia:</label><br>
@@ -33,10 +33,9 @@
             <input type="text" id="par_cep" name="par_cep"><br><br>
 
             <label for="cidade_cid_id">Cidade:</label><br>
-            <select id="cidade_cid_id" name="cidade_cid_id" required>
-                <option value="">Selecione a cidade</option>
-                <!-- Aqui você pode adicionar as opções de cidades dinamicamente -->
-            </select><br><br>
+            <form id="cidade_cid_id_form">
+                
+            </form>
         </fieldset>
 
         <fieldset>
@@ -57,7 +56,7 @@
             <input type="file" id="par_logo_pequena" name="par_logo_pequena"><br><br>
         </fieldset>
 
-        <input type="submit" value="Cadastrar">
+        <input type="submit" value="Cadastrar" onclick="addParam()">
     </form>
 </body>
 </html>
