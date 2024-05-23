@@ -4,23 +4,24 @@ import br.unoeste.fipp.socialcare.DataBase.entities.Product;
 import br.unoeste.fipp.socialcare.Services.categoryProductService;
 import br.unoeste.fipp.socialcare.Services.productService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="apis/manage-products/")
+@RequestMapping(value="apis/citizen/manage-products/")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class manageProductsControl {
     @Autowired
     private productService proService;
     @Autowired
     private categoryProductService catproService;
     @PostMapping("/add-products")
-    public ResponseEntity<Object> addProduct(@RequestParam("pro_id")Long pro_id,
-                                              @RequestParam("pro_nome") String pro_nome,
+    public ResponseEntity<Object> addProduct(@RequestParam("pro_nome") String pro_nome,
                                               @RequestParam("cat_id")Long cat_id){
         if(catproService.findByIdB(cat_id)){
             try{
-                proService.addProduct(new Product(pro_id,pro_nome,catproService.getById(cat_id)));
+                proService.addProduct(new Product(0L,pro_nome,catproService.getById(cat_id)));
 
 
             }catch (Exception e){
@@ -34,6 +35,16 @@ public class manageProductsControl {
 
     }
 
+
+    @GetMapping("/get-product")
+    public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
+        return new ResponseEntity<>(proService.getById(pro_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-products")
+    public ResponseEntity<Object> getALlProducts() {
+        return new ResponseEntity<>(proService.getAll(),HttpStatus.OK);
+    }
     @GetMapping("/delete-product")
     public ResponseEntity<Object> deleteProduct(@RequestParam("pro_id")Long pro_id)
     {
