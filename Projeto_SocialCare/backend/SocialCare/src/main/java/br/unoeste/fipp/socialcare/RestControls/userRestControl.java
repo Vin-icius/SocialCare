@@ -112,6 +112,7 @@ public class userRestControl {
     public ResponseEntity<Object> getALlProducts() {
         return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
     }
+
     //State
     @Autowired
     private stateService stateService;

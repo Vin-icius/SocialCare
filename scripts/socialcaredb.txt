@@ -5617,6 +5617,10 @@ CREATE TABLE public.genero (
   gen_nome VARCHAR(50) NOT NULL
 );
 
+INSERT INTO public.genero (gen_nome) VALUES ('Masculino');
+INSERT INTO public.genero (gen_nome) VALUES ('Feminino');
+INSERT INTO public.genero (gen_nome) VALUES ('Não-Binário');
+
 CREATE TABLE public.fisica (
   pessoa_pes_id INT PRIMARY KEY,
   fis_cpf VARCHAR(11) NOT NULL,
@@ -5637,7 +5641,7 @@ CREATE TABLE public.juridica (
 
 CREATE TABLE public.usuario (
   usu_id SERIAL PRIMARY KEY,
-  fisica_pessoa_pes_id INT NOT NULL,
+  fisica_pessoa_pes_id INT,
   usu_email VARCHAR(256) NOT NULL,
   usu_senha VARCHAR(20) NOT NULL,
   usu_nivel INT,
