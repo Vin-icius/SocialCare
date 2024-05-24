@@ -5650,6 +5650,8 @@ CREATE TABLE public.usuario (
   CONSTRAINT fk_usuario_fisica1 FOREIGN KEY (fisica_pessoa_pes_id) REFERENCES public.fisica (pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+INSERT INTO public.usuario (usu_email, usu_senha, usu_nivel, usu_ativo) VALUES ('admin@admin', '123', 1, true);
+
 CREATE TABLE public.plano (
   pla_id SERIAL PRIMARY KEY,
   pla_dtinicio TIMESTAMP NOT NULL,

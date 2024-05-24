@@ -20,14 +20,6 @@ public class adminRestControl {
         return "connected";
     }
 
-    /////////////////////////////////////// ORDEM PARA INSTANCIAR //////////////////////////////
-    //            CONTROL -> ENTITY -> SERVICES -> DAOS ( REPOSITORIES )                      //
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    //  FAZER O SINGLETON NO JAVASCRIPT E NO BACKEND FAZER O SINGLETON PARA ACESSAR O BANCO  //
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    
     //CategoryProduct
     @Autowired
     private categoryProductService categoryProductService;
@@ -287,7 +279,7 @@ public class adminRestControl {
         }
     }
 
-    @GetMapping("/delete-user")
+    /*@GetMapping("/delete-user")
     public ResponseEntity<Object> deleteUser(@RequestParam(value="id") Long id) {
         try {
             if (userService.deleteById(id)) {
@@ -298,7 +290,7 @@ public class adminRestControl {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
     @GetMapping("/get-user")
     public ResponseEntity<Object> getUser(@RequestParam(value="pro_id") Long pro_id) {

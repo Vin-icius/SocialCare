@@ -15,17 +15,14 @@ public class userRestControl {
         return "connected";
     }
 
-    /////////////////////////////////////// ORDEM PARA INSTANCIAR //////////////////////////////
-    //            CONTROL -> ENTITY -> SERVICES -> DAOS ( REPOSITORIES )                      //
-    ////////////////////////////////////////////////////////////////////////////////////////////
-
-    ////////////////////////////////////////////////////////////////////////////////////////////
-    //  FAZER O SINGLETON NO JAVASCRIPT E NO BACKEND FAZER O SINGLETON PARA ACESSAR O BANCO  //
-    ///////////////////////////////////////////////////////////////////////////////////////////
-
     //CategoryProduct
     @Autowired
     private categoryProductService categoryProductService;
+
+    @PostMapping("/add-category-product")
+    public ResponseEntity<Object> addCategoryProduct (@RequestBody CategoryProduct categoryProduct) {
+        return new ResponseEntity<>(categoryProductService.addCategoryProduct(categoryProduct), HttpStatus.OK);
+    }
 
     @GetMapping("/get-category-product")
     public ResponseEntity<Object> getCategoryProduct (@RequestParam(value="cat_id") Long cat_id) {
@@ -57,6 +54,11 @@ public class userRestControl {
     @Autowired
     private fisicalPersonService fisicalPersonService;
 
+    @PostMapping("/add-fisical-person")
+    public ResponseEntity<Object> addFisicalPerson (@RequestBody FisicalPerson fisicalPerson) {
+        return new ResponseEntity<>(fisicalPersonService.addFisicalPerson(fisicalPerson), HttpStatus.OK);
+    }
+
     @GetMapping("/get-fisical-person")
     public ResponseEntity<Object> getFisicalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
         return new ResponseEntity<>(fisicalPersonService.getById(pessoa_pes_id),HttpStatus.OK);
@@ -71,6 +73,11 @@ public class userRestControl {
     //LegalPerson
     @Autowired
     private legalPersonService legalPersonService;
+
+    @PostMapping("/add-legal-person")
+    public ResponseEntity<Object> addLegalPerson (@RequestBody LegalPerson legalPerson) {
+        return new ResponseEntity<>(legalPersonService.addLegalPerson(legalPerson), HttpStatus.OK);
+    }
 
     @GetMapping("/get-legal-person")
     public ResponseEntity<Object> getLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
@@ -87,6 +94,11 @@ public class userRestControl {
     @Autowired
     private personService personService;
 
+    @PostMapping("/add-person")
+    public ResponseEntity<Object> addPerson (@RequestBody Person person) {
+        return new ResponseEntity<>(personService.addPerson(person), HttpStatus.OK);
+    }
+
     @GetMapping("/get-person")
     public ResponseEntity<Object> getPerson (@RequestParam(value="pes_id") Long pes_id) {
         return new ResponseEntity<>(personService.getById(pes_id),HttpStatus.OK);
@@ -101,6 +113,11 @@ public class userRestControl {
     //Product
     @Autowired
     private productService productService;
+
+    @PostMapping("/add-product")
+    public ResponseEntity<Object> addProduct(@RequestBody Product product) {
+        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.OK);
+    }
 
     @GetMapping("/get-product")
     public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
@@ -132,6 +149,11 @@ public class userRestControl {
     @Autowired
     private storageService storageService;
 
+    @PostMapping("/add-storage")
+    public ResponseEntity<Object> addStorage(@RequestBody Storage storage) {
+        return new ResponseEntity<>(storageService.addStorage(storage), HttpStatus.OK);
+    }
+
     @GetMapping("/get-storage")
     public ResponseEntity<Object> getStorage(@RequestParam(value="pro_id") Long pro_id) {
         return new ResponseEntity<>(storageService.getById(pro_id),HttpStatus.OK);
@@ -146,6 +168,22 @@ public class userRestControl {
     //User
     @Autowired
     private userService userService;
+
+    @PostMapping("/add-user")
+    public ResponseEntity<Object> addUser(@RequestBody User user) {
+        if (!User.isValidEmail(user.getEmail())) {
+            return ResponseEntity.badRequest().body("Email inválido");
+        }
+        if (!User.isValidPassword(user.getPassword())) {
+            return ResponseEntity.badRequest().body("Senha inválida");
+        }
+
+        try {
+            return new ResponseEntity<>(userService.addUser(user), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping("/get-user")
     public ResponseEntity<Object> getUser(@RequestParam(value="pro_id") Long pro_id) {

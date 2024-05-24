@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alterar Cadastro de Usuário</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container-wrapper">
+        <div class="user-list container">
+            <h2>Usuários Cadastrados</h2>
+            <ul id="user-list"></ul>
+        </div>
+        <div class="form-container container">
+            <h2>Alterar Cadastro de Usuário</h2>
+            <div id="message" class="error-message"></div>
+            <form id="update-user-form">
+                <label for="user-id">ID do Usuário:</label>
+                <input type="text" id="user-id" disabled>
+
+                <label for="email">Email:</label>
+                <input type="text" id="email" disabled>
+
+                <label for="password">Nova Senha:</label>
+                <input type="password" id="password" required>
+
+                <label for="access-level">Nível de Acesso:</label>
+                <select id="access-level" required>
+                    <option value="1">Admin</option>
+                    <option value="2">Usuário</option>
+                </select>
+
+                <label for="active">Ativo:</label>
+                <select id="active" required>
+                    <option value="true">Sim</option>
+                    <option value="false">Não</option>
+                </select>
+
+                <button type="submit">Atualizar Usuário</button>
+            </form>
+            <div id="result" class="success-message"></div>
+        </div>
+    </div>
+
+    <script src="/js/update.js"></script>
+</body>
+</html>
