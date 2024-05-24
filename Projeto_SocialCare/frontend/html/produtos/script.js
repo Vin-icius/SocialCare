@@ -21,6 +21,8 @@ function cadastrarProduto(event) {
     })
     .then(text => {
         alert("Inserido com sucesso");
+        document.getElementById("cat_id").value = "";
+        document.getElementById("pro_nome").value = "";
     })
     .catch(error => {
         console.error('Erro:', error);

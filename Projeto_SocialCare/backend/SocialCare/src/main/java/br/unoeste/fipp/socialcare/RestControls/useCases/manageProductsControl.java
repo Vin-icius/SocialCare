@@ -35,7 +35,34 @@ public class manageProductsControl {
 
     }
 
+    @PostMapping("/update-product")
+    public ResponseEntity<Object> updateProduct(@RequestParam("pro_id") Long pro_id,
+                                                @RequestParam("pro_nome") String pro_nome,
+                                                @RequestParam("cat_id") Long cat_id) {
+        if (catproService.findByIdB(cat_id)) {
+            try {
+                Product existingProduct = proService.getById(pro_id);
+                if (existingProduct != null) {
+                    existingProduct.setNome(pro_nome);
+                    existingProduct.setCategoryProduct(catproService.getById(cat_id));
+                    Product updatedProduct = proService.updateProduct(existingProduct);
+                    if (updatedProduct != null) {
+                        return ResponseEntity.ok("Produto atualizado com sucesso");
+                    } else {
+                        return ResponseEntity.badRequest().body("Erro ao atualizar produto");
+                    }
+                } else {
+                    return ResponseEntity.badRequest().body("Produto não encontrado");
+                }
 
+
+            }catch (Exception e){
+                return ResponseEntity.badRequest().body("Erro ao atualizar produto"+e.getMessage());
+            }
+
+        }
+        return ResponseEntity.badRequest().body("Categoria nao encontrada");
+    }
     @GetMapping("/get-product")
     public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
         return new ResponseEntity<>(proService.getById(pro_id), HttpStatus.OK);

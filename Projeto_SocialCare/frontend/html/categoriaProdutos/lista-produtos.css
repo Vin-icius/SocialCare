@@ -22,41 +22,41 @@ h2 {
 }
 
 /* Estilo para a tabela de produtos */
-#tabelaProdutos {
+#tabelaCategoria {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-#tabelaProdutos th, #tabelaProdutos td {
+#tabelaCategoria th, #tabelaCategoria td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
 /* Estilo para o cabeçalho da tabela */
-#tabelaProdutos th {
+#tabelaCategoria th {
     background-color: #f2f2f2;
 }
 
 /* Define larguras específicas para as colunas */
-#tabelaProdutos th:nth-child(1),
-#tabelaProdutos td:nth-child(1) {
+#tabelaCategoria th:nth-child(1),
+#tabelaCategoria td:nth-child(1) {
     width: 10%;
 }
 
-#tabelaProdutos th:nth-child(2),
-#tabelaProdutos td:nth-child(2) {
+#tabelaCategoria th:nth-child(2),
+#tabelaCategoria td:nth-child(2) {
     width: 30%;
 }
 
-#tabelaProdutos th:nth-child(3),
-#tabelaProdutos td:nth-child(3) {
+#tabelaCategoria th:nth-child(3),
+#tabelaCategoria td:nth-child(3) {
     width: 20%;
 }
 
-#tabelaProdutos th:nth-child(4),
-#tabelaProdutos td:nth-child(4) {
+#tabelaCategoria th:nth-child(4),
+#tabelaCategoria td:nth-child(4) {
     width: 40%;
 }
 button {
@@ -72,4 +72,33 @@ button {
 
 button:hover {
     background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-edit {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    
+    
+}
+
+.btn-edit:hover {
+    background-color: blue;
+    color: white;
 }

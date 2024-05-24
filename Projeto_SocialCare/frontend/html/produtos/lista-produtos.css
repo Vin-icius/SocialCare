@@ -1,0 +1,104 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 500px; /* Ajustado para a largura da tabela */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Estilo para a tabela de produtos */
+#tabelaProdutos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#tabelaProdutos th, #tabelaProdutos td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Estilo para o cabeçalho da tabela */
+#tabelaProdutos th {
+    background-color: #f2f2f2;
+}
+
+/* Define larguras específicas para as colunas */
+#tabelaProdutos th:nth-child(1),
+#tabelaProdutos td:nth-child(1) {
+    width: 10%;
+}
+
+#tabelaProdutos th:nth-child(2),
+#tabelaProdutos td:nth-child(2) {
+    width: 30%;
+}
+
+#tabelaProdutos th:nth-child(3),
+#tabelaProdutos td:nth-child(3) {
+    width: 20%;
+}
+
+#tabelaProdutos th:nth-child(4),
+#tabelaProdutos td:nth-child(4) {
+    width: 40%;
+}
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+.btn-edit {
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    
+    
+}
+
+.btn-edit:hover {
+    background-color: blue;
+    color: white;
+}

@@ -36,5 +36,21 @@ public class productService {
         return productRepo.findAll();
     }
 
+    public boolean findByIdB(Long id)
+    {
+        try{
+            productRepo.findById(id);
 
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+
+    public Product updateProduct(Product product){
+        if(productRepo.existsById(product.getId()))
+            return productRepo.save(product);
+        return product;
+    }
 }

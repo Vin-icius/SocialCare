@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Produtos</title>
-    <link rel="stylesheet" href="/css/lista-produtos.css">
+    <title>Lista de Categorias</title>
+    <link rel="stylesheet" href="lista-produtos.css">
 </head>
-<body>
+<body onload="carregarCategorias()">
     <div class="container">
-        <h2>Produtos Cadastrados</h2>
-        <table id="tabelaProdutos">
+        <h2>Categorias Cadastradas</h2>
+        <table id="tabelaCategoria">
             
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Categoria ID</th>
-                    <th>Categoria Nome</th>
                 </tr>
             </thead>
             <tbody>
                 
             </tbody>
         </table>
-        <button onclick="window.location.href = '/html/index.html';">Cadastrar produtos</button>
-    </div>
+        <button onclick="window.location.href = 'CategoriaProdutos.html';">Cadastrar categorias</button>
 
-    <script src="/scripts/lista-produtos.js"></script>
+    <script src="categoriaProdutos.js"></script>
 </body>
 </html>
