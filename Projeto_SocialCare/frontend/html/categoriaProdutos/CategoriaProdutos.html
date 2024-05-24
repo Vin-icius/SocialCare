@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Categoria</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="cadastrarCategoria.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro de categoria de produtos</h2>
+        <form id="formProdutos" onsubmit="return cadastrarCategoria(event)">
+            <div class="form-group">
+                <input type="text" id="cat_nome" name="cat_nome" placeholder="Nome da Categoria" required>
+            </div>
+            <button type="submit">Gravar</button>
+        </form>
+        <button onclick="window.location.href = 'lista-categorias.html';">Ver categorias cadastrads</button>
+    </div>
+</body>
+</html>

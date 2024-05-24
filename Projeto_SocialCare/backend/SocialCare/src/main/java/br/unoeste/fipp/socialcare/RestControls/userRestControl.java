@@ -38,6 +38,8 @@ public class userRestControl {
     }
     //---
 
+
+
     //City
     @Autowired
     private cityService cityService;
@@ -101,7 +103,6 @@ public class userRestControl {
     //Product
     @Autowired
     private productService productService;
-
     @GetMapping("/get-product")
     public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
         return new ResponseEntity<>(productService.getById(pro_id),HttpStatus.OK);
@@ -111,7 +112,6 @@ public class userRestControl {
     public ResponseEntity<Object> getALlProducts() {
         return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
     }
-    //---
 
     //State
     @Autowired
