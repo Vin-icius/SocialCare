@@ -104,13 +104,6 @@ public class userRestControl {
     @Autowired
     private productService productService;
 
-
-    //---
-
-
-
-
-
     //State
     @Autowired
     private stateService stateService;
