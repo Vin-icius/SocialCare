@@ -1,5 +1,5 @@
 // Função para adicionar uma nova parametrização
-function addParam(paramData) {
+function addParam() {
     const URL="http://localhost:8080/apis/parametrization/add-param";
     var parForm = document.getElementById("formCadPar");
     
