@@ -103,7 +103,15 @@ public class userRestControl {
     //Product
     @Autowired
     private productService productService;
+    @GetMapping("/get-product")
+    public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
+        return new ResponseEntity<>(productService.getById(pro_id),HttpStatus.OK);
+    }
 
+    @GetMapping("/get-all-products")
+    public ResponseEntity<Object> getALlProducts() {
+        return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
+    }
     //State
     @Autowired
     private stateService stateService;
