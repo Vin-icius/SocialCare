@@ -17,25 +17,27 @@ public class parameterizationControl {
     @Autowired
     private cityService ctService;
     @PostMapping("/add-param")
-    public ResponseEntity<Object> addParam(@RequestParam("par_id")Long par_id,
+    public ResponseEntity<Object> addParam(@RequestParam("par_id")String par_id,
                                            @RequestParam("par_fantasia") String par_fantasia,
                                            @RequestParam("par_razao")String par_razao,
                                            @RequestParam("par_cnpj")String par_cnpj,
                                            @RequestParam("par_logradouro")String par_logradouro,
                                            @RequestParam("par_bairro")String par_bairro,
                                            @RequestParam("par_cep")String par_cep,
-                                           @RequestParam("cidade_cid_id")Long cidade_cid_id,
+                                           @RequestParam("cidade_cid_id")String cidade_cid_id,
                                            @RequestParam("par_email")String par_email,
                                            @RequestParam("par_site")String par_site,
                                            @RequestParam("par_logogrande")String par_logogrande,
                                            @RequestParam("par_logopequena")String par_logopequena){
-        if(paramService.getById(par_id)!=null){
+        Long par_id1 = Long.parseLong(par_id);
+        Long cidade_cid_id1 = Long.parseLong(cidade_cid_id);
+        if(paramService.getById(par_id1)!=null){
             try{
 
                 City city;
-                city = ctService.getById(cidade_cid_id);
+                city = ctService.getById(cidade_cid_id1);
 
-                Parametrization param = new Parametrization(par_id,par_fantasia,par_razao,par_cnpj,par_logradouro,par_bairro,par_cep,par_email,
+                Parametrization param = new Parametrization(par_id1,par_fantasia,par_razao,par_cnpj,par_logradouro,par_bairro,par_cep,par_email,
                         par_site,par_logogrande,par_logopequena,city);
 
                 paramService.addParam(param);
