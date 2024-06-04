@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cssPar.css">
+    <title>Cadastro de Parametrização</title>
+</head>
+<body onload="openParam()">
+    <h1>Cadastro de Parametrização</h1>
+    <form  id="formCadPar" method="POST" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Dados da Empresa</legend>
+            <label for="par_fantasia">Nome Fantasia:</label><br>
+            <input type="text" id="par_fantasia" name="par_fantasia" required><br><br>
+
+            <label for="par_razao">Razão Social:</label><br>
+            <input type="text" id="par_razao" name="par_razao" required><br><br>
+
+            <label for="par_cnpj">CNPJ:</label><br>
+            <input type="text" id="par_cnpj" name="par_cnpj" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Endereço</legend>
+            <label for="par_logradouro">Logradouro:</label><br>
+            <input type="text" id="par_logradouro" name="par_logradouro"><br><br>
+
+            <label for="par_bairro">Bairro:</label><br>
+            <input type="text" id="par_bairro" name="par_bairro"><br><br>
+
+            <label for="par_cep">CEP:</label><br>
+            <input type="text" id="par_cep" name="par_cep"><br><br>
+
+            <label for="cidade_cid_id">Cidade:</label><br>
+            <form id="cidade_cid_id_form">
+                
+            </form>
+        </fieldset>
+
+        <fieldset>
+            <legend>Contato</legend>
+            <label for="par_email">E-mail:</label><br>
+            <input type="email" id="par_email" name="par_email"><br><br>
+
+            <label for="par_site">Site:</label><br>
+            <input type="text" id="par_site" name="par_site"><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Logos</legend>
+            <label for="par_logo_grande">Logo Grande:</label><br>
+            <input type="file" id="par_logo_grande" name="par_logo_grande"><br><br>
+
+            <label for="par_logo_pequena">Logo Pequena:</label><br>
+            <input type="file" id="par_logo_pequena" name="par_logo_pequena"><br><br>
+        </fieldset>
+
+        <input type="submit" value="Cadastrar" onclick="addParam()">
+    </form>
+</body>
+</html>
