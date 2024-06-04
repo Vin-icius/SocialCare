@@ -77,6 +77,10 @@ public class adminRestControl {
     public ResponseEntity<Object> getCity (@RequestParam(value="cid_id") Long cid_id) {
         return new ResponseEntity<>(cityService.getById(cid_id),HttpStatus.OK);
     }
+    @GetMapping("/get-city-by-nome")
+    public ResponseEntity<Object> getCityByNome (@RequestParam(value="cid_nome") String cid_nome) {
+        return new ResponseEntity<>(cityService.getByNome(cid_nome),HttpStatus.OK);
+    }
 
     @GetMapping("/get-all-cities")
     public ResponseEntity<Object> getAllCities() {
@@ -137,6 +141,33 @@ public class adminRestControl {
     @GetMapping("/get-all-legal-persons")
     public ResponseEntity<Object> getAllLegalPersons() {
         return new ResponseEntity<>(legalPersonService.getAll(),HttpStatus.OK);
+    }
+    //---
+
+    @Autowired
+    private genderService genderService;
+
+    @PostMapping("/add-gender")
+    public ResponseEntity<Object> addGender (@RequestBody Gender gender) {
+        return new ResponseEntity<>(genderService.addGender(gender), HttpStatus.OK);
+    }
+
+    @GetMapping("/delete-gender")
+    public ResponseEntity<Object> deleteGender (@RequestParam(value="gen_id") Long gen_id) {
+        if(genderService.deleteById(gen_id))
+            return new ResponseEntity<>("",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/get-gender")
+    public ResponseEntity<Object> getGender (@RequestParam(value="gen_id") Long gen_id) {
+        return new ResponseEntity<>(genderService.getById(gen_id),HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-genders")
+    public ResponseEntity<Object> getAllGenders() {
+        return new ResponseEntity<>(genderService.getAll(),HttpStatus.OK);
     }
     //---
 

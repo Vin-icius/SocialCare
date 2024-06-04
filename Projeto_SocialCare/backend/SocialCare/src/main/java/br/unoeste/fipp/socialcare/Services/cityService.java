@@ -31,6 +31,10 @@ public class cityService {
         City city = cityRepo.findById(id).get();
         return city;
     }
+    public City getByNome (String nome) {
+        City city = cityRepo.findByNome(nome);
+        return city;
+    }
 
     public List<City> getAll() {
         return cityRepo.findAll();
