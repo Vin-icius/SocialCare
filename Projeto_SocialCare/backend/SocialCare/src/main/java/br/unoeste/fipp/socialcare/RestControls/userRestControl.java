@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value="apis/citizen/")
-public class userRestControl {
+public class    userRestControl {
     @GetMapping(value="connection-test")
     public String connectionTest(){
         return "connected";
@@ -22,6 +22,15 @@ public class userRestControl {
     ////////////////////////////////////////////////////////////////////////////////////////////
     //  FAZER O SINGLETON NO JAVASCRIPT E NO BACKEND FAZER O SINGLETON PARA ACESSAR O BANCO  //
     ///////////////////////////////////////////////////////////////////////////////////////////
+
+    //Gender
+    @Autowired
+    private genderService genderService;
+
+    @GetMapping("/get-all-genders")
+    public ResponseEntity<Object> getAllGenders() {
+        return new ResponseEntity<>(genderService.getAll(),HttpStatus.OK);
+    }
 
     //CategoryProduct
     @Autowired
@@ -85,20 +94,6 @@ public class userRestControl {
     }
     //---
 
-    //Pessoas
-    @Autowired
-    private personService personService;
-
-    @GetMapping("/get-person")
-    public ResponseEntity<Object> getPerson (@RequestParam(value="pes_id") Long pes_id) {
-        return new ResponseEntity<>(personService.getById(pes_id),HttpStatus.OK);
-    }
-
-    @GetMapping("/get-all-persons")
-    public ResponseEntity<Object> getAllPersons() {
-        return new ResponseEntity<>(personService.getAll(),HttpStatus.OK);
-    }
-    //---
 
     //Product
     @Autowired
