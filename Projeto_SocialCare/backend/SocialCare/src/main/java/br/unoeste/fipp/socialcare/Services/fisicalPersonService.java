@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class fisicalPersonService {
@@ -20,25 +21,25 @@ public class fisicalPersonService {
         return fisRepo.save(fisicalPerson);
     }
 
-    public boolean deleteById (Long id) {
-        try{
-            fisRepo.deleteById(id);
-        }
-        catch (Exception e){
-            return false;
-        }
-        return true;
-    }
     public boolean existsByCpf(String cpf) {
         return fisRepo.existsByCpf(cpf);
     }
-    public boolean deleteByCpf(String cpf) {
+
+    public Long getIdByCpf(String cpf) {
+        FisicalPerson fisicalPerson = fisRepo.findByCpf(cpf);
+        return (fisicalPerson != null) ? fisicalPerson.getId() : null;
+    }
+
+    public boolean deleteById(Long id) {
+        if (!fisRepo.existsById(id)) {
+            return false;
+        }
         try {
-            fisRepo.deleteByCpf(cpf);
-            return true;
+            fisRepo.deleteById(id);
         } catch (Exception e) {
             return false;
         }
+        return true;
     }
 
     public FisicalPerson getById (Long id) {
@@ -52,5 +53,17 @@ public class fisicalPersonService {
     public List<FisicalPerson> getAll (){
         return fisRepo.findAll();
     }
+
+
+    public FisicalPerson updateFisicalPerson(FisicalPerson fisicalPerson) {
+        // Certificando-se de que a pessoa física existe antes de tentar atualizá-la
+        if (fisRepo.existsById(fisicalPerson.getId())) {
+            return fisRepo.save(fisicalPerson);
+        } else {
+            throw new IllegalArgumentException("Pessoa física não encontrada para atualização.");
+        }
+    }
+
+
 }
 
