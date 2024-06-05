@@ -27,18 +27,6 @@ public class Plan {
     private FisicalPerson pessoa;
 
 
-    public Plan() {
-        this(0L,"","","",null,null);
-    }
-
-    public Plan(Long id, String dtinicio, String dtfim, String observacao, User usuario, FisicalPerson pessoa) {
-        this.id = id;
-        this.dtinicio = dtinicio;
-        this.dtfim = dtfim;
-        this.observacao = observacao;
-        this.usuario = usuario;
-        this.pessoa=pessoa;
-    }
 
     public FisicalPerson getPessoa() {
         return pessoa;
