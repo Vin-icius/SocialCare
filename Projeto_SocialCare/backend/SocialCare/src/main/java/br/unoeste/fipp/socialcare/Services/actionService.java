@@ -1,20 +1,20 @@
 package br.unoeste.fipp.socialcare.Services;
 
 
-import br.unoeste.fipp.socialcare.DataBase.entities.Actions;
-import br.unoeste.fipp.socialcare.DataBase.repositories.actionsRepository;
+import br.unoeste.fipp.socialcare.DataBase.entities.Action;
+import br.unoeste.fipp.socialcare.DataBase.repositories.actionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class actionsService {
+public class actionService {
 
     @Autowired
-    private actionsRepository acRepo;
+    private actionRepository acRepo;
 
-    public Actions addAction (Actions action) {
+    public Action addAction (Action action) {
         return acRepo.save(action);
     }
 
@@ -28,11 +28,11 @@ public class actionsService {
         return true;
     }
 
-    public Actions getById (Long id) {
-        Actions action = acRepo.findById(id).get();
+    public Action getById (Long id) {
+        Action action = acRepo.findById(id).get();
         return action;
     }
-    public List<Actions> getAll() {
+    public List<Action> getAll() {
         return acRepo.findAll();
     }
 }

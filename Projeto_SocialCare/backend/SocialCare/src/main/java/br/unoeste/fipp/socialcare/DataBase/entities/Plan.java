@@ -14,16 +14,13 @@ public class Plan {
     private String dtinicio;
     @Column(name="pla_dtfim")
     private String dtfim;
-
     @Column(name="pla_observacao")
     private String observacao;
-
-
     @ManyToOne
     @JoinColumn(name="usuario_usu_id", nullable = false)
     private User usuario;
     @ManyToOne
-    @JoinColumn(name="pessoa_fisica_pesf_id", nullable = false)
+    @JoinColumn(name="pesf_id", nullable = false)
     private FisicalPerson pessoa;
 
 

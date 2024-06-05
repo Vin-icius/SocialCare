@@ -5604,6 +5604,9 @@ CREATE TABLE public.genero (
   gen_id SERIAL PRIMARY KEY,
   gen_nome VARCHAR(50) NOT NULL
 );
+INSERT INTO public.genero (gen_nome) VALUES ('Masculino');
+INSERT INTO public.genero (gen_nome) VALUES ('Feminino');
+
 
 CREATE TABLE public.pessoa_fisica (
   pesf_id SERIAL PRIMARY KEY,
@@ -5698,10 +5701,13 @@ CREATE TABLE public.transferencia (
 
 CREATE TABLE public.acoes (
   aco_id SERIAL PRIMARY KEY,
-  plano_pla_id INT NOT NULL,
   aco_dtacao VARCHAR(10) NOT NULL,
   aco_descricao VARCHAR(120) NOT NULL,
-  CONSTRAINT fk_acoes_plano1 FOREIGN KEY (plano_pla_id) REFERENCES public.plano (pla_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  usuario_usu_id INT NOT NULL,
+  pesf_id INT NOT NULL,
+  CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES public.usuario (usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_acoes_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  
 );
 
 CREATE TABLE public.categoria (
@@ -5801,4 +5807,7 @@ CREATE TABLE public.parametrizacao (
   par_logopequena VARCHAR(20),
   CONSTRAINT fk_parametrizacao_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+
+
 
