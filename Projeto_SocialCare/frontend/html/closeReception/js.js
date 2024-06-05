@@ -1,3 +1,16 @@
+function date() {
+    var dtacao = document.getElementById('dtacao').value;
+    var today = new Date();
+    var selectedDate = new Date(dtacao);
+
+    if (selectedDate > today) {
+        alert('A data de ação não pode ser futura.');
+        return false; // Cancela o envio do formulário
+    }
+
+    return true; // Permite o envio do formulário
+}
+
 fetch('http://localhost:8080/apis/CloseReception/add-action', {
     method: 'POST',
     headers: {
@@ -9,6 +22,7 @@ fetch('http://localhost:8080/apis/CloseReception/add-action', {
         descricao: 'valor_da_descricao'
         // outros campos, se houver
     })
+
 }).then(response => {
     if (!response.ok) {
         throw new Error('Erro ao enviar requisição.');

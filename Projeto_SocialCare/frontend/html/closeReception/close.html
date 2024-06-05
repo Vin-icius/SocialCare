@@ -8,8 +8,8 @@
 </head>
 <body>
 <h2>Adicionar Ação</h2>
-<form action="http://localhost:8080/apis/CloseReception/add-action" method="POST">
-    <input type="text" name="cpf" placeholder="Informe o CPF" required maxlength="11">
+<form id="addActionForm" action="http://localhost:8080/apis/CloseReception/add-action" method="POST" onsubmit="return date()">
+    <input type="text" name="cpf" id="cpf" placeholder="Informe o CPF" required maxlength="11">
 
     <label for="dtacao">Data da Ação:</label>
     <input type="date" id="dtacao" name="dtacao" required><br><br>
