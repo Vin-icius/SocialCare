@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Contas a Pagar</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+    <script src="/js/billsPayable.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1>Gerenciar Contas a Pagar</h1>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Buscar por ID, Descrição ou Valor" oninput="filterGrid()">
+            </div>
+            <div class="grid">
+                <table id="bills-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Data de Emissão</th>
+                            <th>Data de Vencimento</th>
+                            <th>Valor</th>
+                            <th>Descrição</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Linhas de contas a pagar serão inseridas aqui via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-container">
+                <h2 id="form-title">Adicionar Conta a Pagar</h2>
+                <form id="bill-form">
+                    <input type="hidden" id="bill-id">
+                    <p>
+                        <label for="dtEmissao">Data de Emissão *</label>
+                        <input type="date" id="dtEmissao" required>
+                    </p>
+                    <p>
+                        <label for="dtVencto">Data de Vencimento *</label>
+                        <input type="date" id="dtVencto" required>
+                    </p>
+                    <p>
+                        <label for="valor">Valor *</label>
+                        <input type="number" id="valor" step="0.01" required>
+                    </p>
+                    <p>
+                        <label for="descricao">Descrição</label>
+                        <input type="text" id="descricao">
+                    </p>
+                    <p>
+                        <input type="submit" value="Salvar">
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
