@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name="acoes")
-public class Actions {
+public class Action {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="aco_id")
@@ -17,19 +17,23 @@ public class Actions {
 
     // Foreign Key
     @ManyToOne
-    @JoinColumn(name="plano_pla_id", nullable = false)
-    private Plan plano;
+    @JoinColumn(name="usuario_usu_id")
+    private User usuario;
+    @ManyToOne
+    @JoinColumn(name="pesf_id", nullable = false)
+    private FisicalPerson pessoa;
 
 
-    public Actions() {
-        this(0L,"","",null);
+    public Action() {
+        this(0L,"","",null,null);
     }
 
-    public Actions(Long id, String dtacao, String descricao, Plan plano) {
+    public Action(Long id, String dtacao, String descricao, User usuario, FisicalPerson pessoa) {
         this.id = id;
         this.dtacao = dtacao;
         this.descricao = descricao;
-        this.plano = plano;
+        this.usuario=usuario;
+        this.pessoa=pessoa;
     }
 
     public Long getId() {
@@ -56,11 +60,19 @@ public class Actions {
         this.descricao = descricao;
     }
 
-    public Plan getPlano() {
-        return plano;
+    public User getUsuario() {
+        return usuario;
     }
 
-    public void setPlano(Plan plano) {
-        this.plano = plano;
+    public void setUsuario(User usuario) {
+        this.usuario = usuario;
+    }
+
+    public FisicalPerson getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(FisicalPerson pessoa) {
+        this.pessoa = pessoa;
     }
 }

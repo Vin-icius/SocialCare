@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encerrar Acolhimento</title>
+    <link rel="stylesheet" href="ccsCR.css">
+</head>
+<body>
+<h2>Adicionar Ação</h2>
+<form id="addActionForm" action="http://localhost:8080/apis/CloseReception/add-action" method="POST" onsubmit="return date()">
+    <input type="text" name="cpf" id="cpf" placeholder="Informe o CPF" required maxlength="11">
+
+    <label for="dtacao">Data da Ação:</label>
+    <input type="date" id="dtacao" name="dtacao" required><br><br>
+
+    <label for="descricao">Descrição:</label><br>
+    <textarea id="descricao" name="descricao" rows="4" cols="50" required></textarea><br><br>
+
+    <button type="submit">Adicionar Ação</button>
+</form>
+
+<div id="response"></div>
+
+<!-- Incluindo o arquivo JavaScript -->
+<script src="js.js"></script>
+</body>
+</html>

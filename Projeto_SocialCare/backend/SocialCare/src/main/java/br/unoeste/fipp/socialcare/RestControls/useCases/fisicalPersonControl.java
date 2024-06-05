@@ -23,7 +23,8 @@ public class fisicalPersonControl {
     cityService cService;
 
     @PostMapping("/add-fisical-person")
-    public ResponseEntity<Object> addPerson(@RequestBody FisicalPerson pessoa) {
+    public ResponseEntity<Object> addPerson(@RequestBody FisicalPerson pessoa)
+    {
         try {
             if (pessoa.getCidade() == null || pessoa.getCidade().getId() == null) {
                 return ResponseEntity.badRequest().body("ID da cidade não pode ser nulo.");
