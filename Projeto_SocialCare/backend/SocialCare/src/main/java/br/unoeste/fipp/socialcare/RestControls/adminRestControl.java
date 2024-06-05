@@ -302,4 +302,41 @@ public class adminRestControl {
         return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
     }
     //---
+
+    // ContasPagar
+    @Autowired
+    private billsPayableService billsPayableService;
+
+    @PostMapping("/add-bills-payable")
+    public ResponseEntity<Object> addBillsPayable (@RequestBody BillsPayable billsPayable) {
+        return new ResponseEntity<>(billsPayableService.addBillsPayable(billsPayable), HttpStatus.OK);
+    }
+
+    @GetMapping("/delete-bills-payable")
+    public ResponseEntity<Object> deleteBillsPayable (@RequestParam(value="cpg_id") Long cpg_id) {
+        if (billsPayableService.deleteById(cpg_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping("/update-bills-payable")
+    public ResponseEntity<Object> updateBillsPayable (@RequestBody BillsPayable billsPayable) {
+        try {
+            return new ResponseEntity<>(billsPayableService.updateBillsPayable(billsPayable), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/get-bills-payable")
+    public ResponseEntity<Object> getBillsPayable (@RequestParam(value="cpg_id") Long cpg_id) {
+        return new ResponseEntity<>(billsPayableService.getById(cpg_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-bills-payables")
+    public ResponseEntity<Object> getAllBillsPayable () {
+        return new ResponseEntity<>(billsPayableService.getAll(), HttpStatus.OK);
+    }
+    //---
 }
