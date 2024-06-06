@@ -1,6 +1,7 @@
 package br.unoeste.fipp.socialcare.Services;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.Storage;
+import br.unoeste.fipp.socialcare.DataBase.entities.Unity;
 import br.unoeste.fipp.socialcare.DataBase.repositories.storageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

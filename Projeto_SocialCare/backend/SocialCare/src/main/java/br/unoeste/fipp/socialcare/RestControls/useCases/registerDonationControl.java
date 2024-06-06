@@ -32,13 +32,13 @@ public class registerDonationControl {
     @Autowired
     private fisicalPersonService fpService;
     @Autowired
-    private personService psService;
+    private unityService uService;
     @Autowired
     private productService pdService;
     @Autowired
     private storageService stService;
     @Autowired
-    private cityService ctService;
+    private donationItensService ditService;
     @Autowired
     private registerDonationService donationService;
 
@@ -47,9 +47,11 @@ public class registerDonationControl {
     public ResponseEntity<Object> registerDonation(@RequestParam String donor,
                                                    @RequestParam String category,
                                                    @RequestParam String product,
+                                                   @RequestParam String qtde,
                                                    @RequestParam String obs,
                                                    @RequestParam String donationData,
-                                                   @RequestParam String donationTime) {
+                                                   @RequestParam String donationTime,
+                                                   @RequestParam String unidade) {
         try {
 
             // Buscar a pessoa física pelo CPF
@@ -63,6 +65,13 @@ public class registerDonationControl {
             Long prod1 = Long.parseLong(product);
             Product produto;
             produto = pdService.getById(prod1);
+
+            int qtde1 = Integer.parseInt(qtde);
+
+            Long uni1 = Long.parseLong(unidade);
+            Unity unity = uService.getById(uni1);
+
+            DonationItens dItens = null;
 
             if (pessoa == null) {
                 return ResponseEntity.badRequest().body("Pessoa física não encontrada para o CPF: " + pessoa.getCpf());
@@ -78,11 +87,23 @@ public class registerDonationControl {
                         if(product == null)
                             return ResponseEntity.badRequest().body("Produto não encontrado para o ID: " + produto.getId());
                         else{
+                            //Atualizar a tabela de Doação
                             Donation donation = new Donation();
                             donation.setData(donationData+" "+donationTime);
                             donation.setPessoa(pessoa);
                             donation.setObservacao(obs);
                             donationService.addDonation(donation);
+
+                            //Atualizar a tabela de Itens da doação
+                            dItens.setDoacao(donation);
+                            dItens.setProduto(produto);
+                            dItens.setQuantidade(qtde1);
+                            dItens.setUnidade(unity);
+                            ditService.addDonation(dItens);
+
+                            //Atualizar o estoque
+                            Storage storage = null;
+                            //storage = stService.getById();
                         }
 
 

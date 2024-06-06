@@ -1,7 +1,6 @@
 package br.unoeste.fipp.socialcare.DataBase.repositories;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.FisicalPerson;
-import br.unoeste.fipp.socialcare.DataBase.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

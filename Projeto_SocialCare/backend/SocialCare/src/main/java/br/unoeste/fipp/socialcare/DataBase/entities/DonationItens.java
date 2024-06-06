@@ -10,6 +10,11 @@ public class DonationItens {
     @ManyToOne
     @JoinColumn(name="produto_pro_id")
     private Product produto;
+
+    @ManyToOne
+    @JoinColumn(name="unidade_uni_id")
+    private Unity unidade;
+
     @ManyToOne
     @JoinColumn(name="doacao_doa_id")
     private Donation doacao;
@@ -17,14 +22,23 @@ public class DonationItens {
     @Column(name = "itd_quantidade")
     private double quantidade;
 
-    public DonationItens(Product produto, Donation doacao, double quantidade) {
+    public DonationItens(Product produto,Unity unidade, Donation doacao, double quantidade) {
         this.produto = produto;
+        this.unidade=unidade;
         this.doacao = doacao;
         this.quantidade = quantidade;
     }
 
     public DonationItens() {
-        this(null,null,0.0);
+        this(null,null,null,0.0);
+    }
+
+    public Unity getUnidade() {
+        return unidade;
+    }
+
+    public void setUnidade(Unity unidade) {
+        this.unidade = unidade;
     }
 
     public Product getProduto() {
