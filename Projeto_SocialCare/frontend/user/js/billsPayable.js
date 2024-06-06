@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${formatValue(bill.valor)}</td>
                 <td>${bill.descricao}</td>
                 <td class="actions">
-                    <button class="edit" onclick="editBill(${bill.id}, '${bill.dtEmissao}', '${bill.dtVencto}', ${bill.valor}, '${bill.descricao}')">Editar</button>
+                    <button class="edit" onclick="editBill(${bill.id}, '${bill.pessoaPesId}', '${bill.compraComId}', '${bill.dtEmissao}', '${bill.dtVencto}', ${bill.valor}, '${bill.descricao}')">Editar</button>
                     <button class="delete" onclick="deleteBill(${bill.id})">Excluir</button>
                 </td>
             `;
@@ -74,6 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
         event.preventDefault();
 
         const id = document.getElementById('bill-id').value;
+        const pessoaPesId = document.getElementById('pessoaPesId').value;
+        const compraComId = document.getElementById('compraComId').value;
         const dtEmissao = document.getElementById('dtEmissao').value;
         const dtVencto = document.getElementById('dtVencto').value;
         const valor = document.getElementById('valor').value;
@@ -81,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const bill = {
             id: id ? parseInt(id) : null,
+            pessoaPesId: parseInt(pessoaPesId),
+            compraComId: compraComId ? parseInt(compraComId) : null,
             dtEmissao: dtEmissao,
             dtVencto: dtVencto,
             valor: parseFloat(valor),
@@ -113,8 +117,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    window.editBill = function (id, dtEmissao, dtVencto, valor, descricao) {
+    window.editBill = function (id, pessoaPesId, compraComId, dtEmissao, dtVencto, valor, descricao) {
         document.getElementById('bill-id').value = id;
+        document.getElementById('pessoaPesId').value = pessoaPesId;
+        document.getElementById('compraComId').value = compraComId || '';
         document.getElementById('dtEmissao').value = dtEmissao.split('T')[0];
         document.getElementById('dtVencto').value = dtVencto.split('T')[0];
         document.getElementById('valor').value = valor.toFixed(2);

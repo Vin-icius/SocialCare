@@ -5773,12 +5773,16 @@ CREATE TABLE public.itens_compra (
 
 CREATE TABLE public.contas_pagar (
   cpg_id SERIAL PRIMARY KEY,
+  pessoa_pes_id INT,
+  compra_com_id INT,
   cpg_dtemissao TIMESTAMP NOT NULL,
   cpg_dtvencto TIMESTAMP NOT NULL,
   cpg_valor DOUBLE PRECISION NOT NULL,
   cpg_descricao VARCHAR(120),
   cpg_dtpagto TIMESTAMP,
-  cpg_valorpago DOUBLE PRECISION
+  cpg_valorpago DOUBLE PRECISION,
+  CONSTRAINT fk_contaspagar_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_contaspagar_compra1 FOREIGN KEY (compra_com_id) REFERENCES public.compra (com_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE public.parametrizacao (

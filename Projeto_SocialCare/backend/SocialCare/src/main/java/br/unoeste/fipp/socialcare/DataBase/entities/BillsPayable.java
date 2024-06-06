@@ -13,19 +13,14 @@ public class BillsPayable {
     @Column(name="cpg_id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name="pessoa_pes_id", nullable = false)
-//    private Person person;
+    @JoinColumn(name="pessoa_pes_id", nullable = false)
+    private Long pessoaPesId;
 
-//    @ManyToOne
-//    @JoinColumn(name="compra_com_id", nullable = false)
-//    private Purchase purchase;
+    @JoinColumn(name="compra_com_id", nullable = true)
+    private Long compraComId;
 
     @Column(name="cpg_dtemissao", nullable = false)
     private Date dtEmissao;
-
-//    @Column(name="cpg_numparc", nullable = false)
-//    private int numParc;
 
     @Column(name="cpg_dtvencto", nullable = false)
     private Date dtVencto;
@@ -50,13 +45,21 @@ public class BillsPayable {
         this.id = id;
     }
 
-//    public Purchase getPurchase() {
-//        return purchase;
-//    }
-//
-//    public void setPurchase(Purchase purchase) {
-//        this.purchase = purchase;
-//    }
+    public Long getPessoaPesId() {
+        return pessoaPesId;
+    }
+
+    public void setPessoaPesId(Long pessoaPesId) {
+        this.pessoaPesId = pessoaPesId;
+    }
+
+    public Long getCompraComId() {
+        return compraComId;
+    }
+
+    public void setCompraComId(Long compraComId) {
+        this.compraComId = compraComId;
+    }
 
     public Date getDtEmissao() {
         return dtEmissao;
@@ -65,14 +68,6 @@ public class BillsPayable {
     public void setDtEmissao(Date dtEmissao) {
         this.dtEmissao = dtEmissao;
     }
-
-//    public int getNumParc() {
-//        return numParc;
-//    }
-//
-//    public void setNumParc(int numParc) {
-//        this.numParc = numParc;
-//    }
 
     public Date getDtVencto() {
         return dtVencto;
