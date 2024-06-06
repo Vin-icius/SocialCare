@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value="apis/parametrization/")
@@ -27,8 +28,8 @@ public class parameterizationControl {
                                            @RequestParam("cidade_cid_id")String cidade_cid_id,
                                            @RequestParam("par_email")String par_email,
                                            @RequestParam("par_site")String par_site,
-                                           @RequestParam("par_logogrande")String par_logogrande,
-                                           @RequestParam("par_logopequena")String par_logopequena){
+                                           @RequestParam("par_logogrande") MultipartFile par_logogrande,
+                                           @RequestParam("par_logopequena")MultipartFile par_logopequena){
         Long par_id1 = Long.parseLong(par_id);
         Long cidade_cid_id1 = Long.parseLong(cidade_cid_id);
         if(paramService.getById(par_id1)!=null){
@@ -38,9 +39,9 @@ public class parameterizationControl {
                 city = ctService.getById(cidade_cid_id1);
 
                 Parametrization param = new Parametrization(par_id1,par_fantasia,par_razao,par_cnpj,par_logradouro,par_bairro,par_cep,par_email,
-                        par_site,par_logogrande,par_logopequena,city);
+                        par_site,"","",city);
 
-                paramService.addParam(param);
+                paramService.addParam(param,par_logogrande,par_logopequena);
 
             }catch (Exception e){
                 return ResponseEntity.badRequest().body("Erro ao inserir parametrização"+e.getMessage());
@@ -71,7 +72,7 @@ public class parameterizationControl {
     public ResponseEntity<Object> editParam(@RequestBody Parametrization param){
         if(param!=null){
             try{
-                paramService.addParam(param);
+                paramService.editParam(param);
 
             }catch (Exception e){
                 return ResponseEntity.badRequest().body("Erro ao modificar parametrização"+e.getMessage());

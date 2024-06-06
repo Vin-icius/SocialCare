@@ -15,7 +15,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 @Service
-public class parametrizationService {
+public class registerDonationService {
     @Autowired
     private parametrizationRepository paramRepo;
     @Autowired
