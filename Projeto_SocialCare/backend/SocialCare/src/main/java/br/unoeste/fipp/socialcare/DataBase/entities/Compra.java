@@ -16,7 +16,7 @@ public class Compra {
     private Long id;
     @Column(name="com_data")
     private LocalDate date;
-    @Column(name = "com_vlrtotal")
+    @Column(name = "com_vlrotal")
     private Double totalValue;
 
     @Column(name = "com_observacao")

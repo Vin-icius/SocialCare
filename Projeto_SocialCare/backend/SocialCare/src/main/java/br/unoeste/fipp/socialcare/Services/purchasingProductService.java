@@ -34,6 +34,8 @@ public class purchasingProductService {
         return true;
     }
 
+
+
     public PurchasingProducts getById (Long id) {
         PurchasingProducts purchasingProducts = repo.findById(id).get();
         return purchasingProducts;

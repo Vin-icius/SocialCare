@@ -15,7 +15,7 @@ public class PurchasingProducts {
     @JoinColumn(name = "compra_com_id",nullable = false)
     private Compra compra;
     @ManyToOne
-    @JoinColumn(name = "estoque_produto_com_id",nullable = false)
+    @JoinColumn(name = "estoque_produto_pro_id",nullable = false)
     private Storage product;
     @ManyToOne
     @JoinColumn(name="estoque_unidade_uni_id")

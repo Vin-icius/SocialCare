@@ -5,5 +5,5 @@ import br.unoeste.fipp.socialcare.DataBase.entities.Storage;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface storageRepository extends JpaRepository<Storage, Long> {
-    public Storage findByProductName(String name);
+    Storage findByProductNome(String name);
 }

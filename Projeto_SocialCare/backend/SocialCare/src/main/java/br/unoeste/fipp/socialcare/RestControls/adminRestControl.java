@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value="apis/admin/")
 public class adminRestControl {
-    @GetMapping(value="connection-test")
-    public String connectionTest(){
+    @GetMapping(value = "connection-test")
+    public String connectionTest() {
         return "connected";
     }
 
@@ -33,26 +33,26 @@ public class adminRestControl {
     private categoryProductService categoryProductService;
 
     @PostMapping("/add-category-product")
-    public ResponseEntity<Object> addCategoryProduct (@RequestBody CategoryProduct categoryProduct) {
+    public ResponseEntity<Object> addCategoryProduct(@RequestBody CategoryProduct categoryProduct) {
         return new ResponseEntity<>(categoryProductService.addCategoryProduct(categoryProduct), HttpStatus.OK);
     }
 
     @GetMapping("/delete-category-product")
-    public ResponseEntity<Object> deleteCategoryProduct (@RequestParam(value="cat_id") Long cat_id) {
-        if(categoryProductService.deleteById(cat_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteCategoryProduct(@RequestParam(value = "cat_id") Long cat_id) {
+        if (categoryProductService.deleteById(cat_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-category-product")
-    public ResponseEntity<Object> getCategoryProduct (@RequestParam(value="cat_id") Long cat_id) {
-        return new ResponseEntity<>(categoryProductService.getById(cat_id),HttpStatus.OK);
+    public ResponseEntity<Object> getCategoryProduct(@RequestParam(value = "cat_id") Long cat_id) {
+        return new ResponseEntity<>(categoryProductService.getById(cat_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-categories-product")
     public ResponseEntity<Object> getAllCategoriesProduct() {
-        return new ResponseEntity<>(categoryProductService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(categoryProductService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -61,26 +61,26 @@ public class adminRestControl {
     private cityService cityService;
 
     @PostMapping("/add-city")
-    public ResponseEntity<Object> addCity (@RequestBody City city) {
+    public ResponseEntity<Object> addCity(@RequestBody City city) {
         return new ResponseEntity<>(cityService.addCity(city), HttpStatus.OK);
     }
 
     @GetMapping("/delete-city")
-    public ResponseEntity<Object> deleteCity (@RequestParam(value="cid_id") Long cid_id) {
-        if(cityService.deleteById(cid_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteCity(@RequestParam(value = "cid_id") Long cid_id) {
+        if (cityService.deleteById(cid_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-city")
-    public ResponseEntity<Object> getCity (@RequestParam(value="cid_id") Long cid_id) {
-        return new ResponseEntity<>(cityService.getById(cid_id),HttpStatus.OK);
+    public ResponseEntity<Object> getCity(@RequestParam(value = "cid_id") Long cid_id) {
+        return new ResponseEntity<>(cityService.getById(cid_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-cities")
     public ResponseEntity<Object> getAllCities() {
-        return new ResponseEntity<>(cityService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(cityService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -89,26 +89,26 @@ public class adminRestControl {
     private fisicalPersonService fisicalPersonService;
 
     @PostMapping("/add-fisical-person")
-    public ResponseEntity<Object> addFisicalPerson (@RequestBody FisicalPerson fisicalPerson) {
+    public ResponseEntity<Object> addFisicalPerson(@RequestBody FisicalPerson fisicalPerson) {
         return new ResponseEntity<>(fisicalPersonService.addFisicalPerson(fisicalPerson), HttpStatus.OK);
     }
 
     @GetMapping("/delete-fisical-person")
-    public ResponseEntity<Object> deleteFisicalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
-        if(fisicalPersonService.deleteById(pessoa_pes_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteFisicalPerson(@RequestParam(value = "pessoa_pes_id") Long pessoa_pes_id) {
+        if (fisicalPersonService.deleteById(pessoa_pes_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-fisical-person")
-    public ResponseEntity<Object> getFisicalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
-        return new ResponseEntity<>(fisicalPersonService.getById(pessoa_pes_id),HttpStatus.OK);
+    public ResponseEntity<Object> getFisicalPerson(@RequestParam(value = "pessoa_pes_id") Long pessoa_pes_id) {
+        return new ResponseEntity<>(fisicalPersonService.getById(pessoa_pes_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-fisical-persons")
     public ResponseEntity<Object> getAllFisicalPersons() {
-        return new ResponseEntity<>(fisicalPersonService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(fisicalPersonService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -117,26 +117,26 @@ public class adminRestControl {
     private legalPersonService legalPersonService;
 
     @PostMapping("/add-legal-person")
-    public ResponseEntity<Object> addLegalPerson (@RequestBody LegalPerson legalPerson) {
+    public ResponseEntity<Object> addLegalPerson(@RequestBody LegalPerson legalPerson) {
         return new ResponseEntity<>(legalPersonService.addLegalPerson(legalPerson), HttpStatus.OK);
     }
 
     @GetMapping("/delete-legal-person")
-    public ResponseEntity<Object> deleteLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
-        if(legalPersonService.deleteById(pessoa_pes_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteLegalPerson(@RequestParam(value = "pessoa_pes_id") Long pessoa_pes_id) {
+        if (legalPersonService.deleteById(pessoa_pes_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-legal-person")
-    public ResponseEntity<Object> getLegalPerson (@RequestParam(value="pessoa_pes_id") Long pessoa_pes_id) {
-        return new ResponseEntity<>(legalPersonService.getById(pessoa_pes_id),HttpStatus.OK);
+    public ResponseEntity<Object> getLegalPerson(@RequestParam(value = "pessoa_pes_id") Long pessoa_pes_id) {
+        return new ResponseEntity<>(legalPersonService.getById(pessoa_pes_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-legal-persons")
     public ResponseEntity<Object> getAllLegalPersons() {
-        return new ResponseEntity<>(legalPersonService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(legalPersonService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -145,26 +145,26 @@ public class adminRestControl {
     private personService personService;
 
     @PostMapping("/add-person")
-    public ResponseEntity<Object> addPerson (@RequestBody Person person) {
+    public ResponseEntity<Object> addPerson(@RequestBody Person person) {
         return new ResponseEntity<>(personService.addPerson(person), HttpStatus.OK);
     }
 
     @GetMapping("/delete-person")
-    public ResponseEntity<Object> deletePerson (@RequestParam(value="pes_id") Long pes_id) {
-        if(personService.deleteById(pes_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deletePerson(@RequestParam(value = "pes_id") Long pes_id) {
+        if (personService.deleteById(pes_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-person")
-    public ResponseEntity<Object> getPerson (@RequestParam(value="pes_id") Long pes_id) {
-        return new ResponseEntity<>(personService.getById(pes_id),HttpStatus.OK);
+    public ResponseEntity<Object> getPerson(@RequestParam(value = "pes_id") Long pes_id) {
+        return new ResponseEntity<>(personService.getById(pes_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-persons")
     public ResponseEntity<Object> getAllPersons() {
-        return new ResponseEntity<>(personService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(personService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -178,48 +178,49 @@ public class adminRestControl {
     }
 
     @GetMapping("/delete-product")
-    public ResponseEntity<Object> deleteProduct(@RequestParam(value="pro_id") Long pro_id) {
-        if(productService.deleteById(pro_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteProduct(@RequestParam(value = "pro_id") Long pro_id) {
+        if (productService.deleteById(pro_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-product")
-    public ResponseEntity<Object> getProduct(@RequestParam(value="pro_id") Long pro_id) {
-        return new ResponseEntity<>(productService.getById(pro_id),HttpStatus.OK);
+    public ResponseEntity<Object> getProduct(@RequestParam(value = "pro_id") Long pro_id) {
+        return new ResponseEntity<>(productService.getById(pro_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-products")
     public ResponseEntity<Object> getALlProducts() {
-        return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
     //---
 
     //State
     @Autowired
     private stateService stateService;
+
     @PostMapping("/add-state")
-    public ResponseEntity<Object> addState (@RequestBody State state) {
+    public ResponseEntity<Object> addState(@RequestBody State state) {
         return new ResponseEntity<>(stateService.addState(state), HttpStatus.OK);
     }
 
     @GetMapping("/delete-state")
-    public ResponseEntity<Object> deleteState (@RequestParam(value="est_id") Long est_id) {
-        if(stateService.deleteById(est_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteState(@RequestParam(value = "est_id") Long est_id) {
+        if (stateService.deleteById(est_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-state")
-    public ResponseEntity<Object> getState (@RequestParam(value="est_id") Long est_id) {
-        return new ResponseEntity<>(stateService.getById(est_id),HttpStatus.OK);
+    public ResponseEntity<Object> getState(@RequestParam(value = "est_id") Long est_id) {
+        return new ResponseEntity<>(stateService.getById(est_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-states")
     public ResponseEntity<Object> getAllStates() {
-        return new ResponseEntity<>(stateService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(stateService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -233,21 +234,21 @@ public class adminRestControl {
     }
 
     @GetMapping("/delete-storage")
-    public ResponseEntity<Object> deleteStorage(@RequestParam(value="pro_id") Long pro_id) {
-        if(storageService.deleteById(pro_id))
-            return new ResponseEntity<>("",HttpStatus.OK);
+    public ResponseEntity<Object> deleteStorage(@RequestParam(value = "pro_id") Long pro_id) {
+        if (storageService.deleteById(pro_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
         else
-            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get-storage")
-    public ResponseEntity<Object> getStorage(@RequestParam(value="pro_id") Long pro_id) {
-        return new ResponseEntity<>(storageService.getById(pro_id),HttpStatus.OK);
+    public ResponseEntity<Object> getStorage(@RequestParam(value = "pro_id") Long pro_id) {
+        return new ResponseEntity<>(storageService.getById(pro_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-storages")
     public ResponseEntity<Object> getAllStorages() {
-        return new ResponseEntity<>(storageService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(storageService.getAll(), HttpStatus.OK);
     }
     //---
 
@@ -288,7 +289,7 @@ public class adminRestControl {
     }
 
     @GetMapping("/delete-user")
-    public ResponseEntity<Object> deleteUser(@RequestParam(value="id") Long id) {
+    public ResponseEntity<Object> deleteUser(@RequestParam(value = "id") Long id) {
         try {
             if (userService.deleteById(id)) {
                 return new ResponseEntity<>("", HttpStatus.OK);
@@ -301,41 +302,24 @@ public class adminRestControl {
     }
 
     @GetMapping("/get-user")
-    public ResponseEntity<Object> getUser(@RequestParam(value="pro_id") Long pro_id) {
-        return new ResponseEntity<>(userService.getById(pro_id),HttpStatus.OK);
+    public ResponseEntity<Object> getUser(@RequestParam(value = "pro_id") Long pro_id) {
+        return new ResponseEntity<>(userService.getById(pro_id), HttpStatus.OK);
     }
 
     @GetMapping("/get-all-users")
     public ResponseEntity<Object> getAllUsers() {
-        return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
+        return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
     }
 
 
-    @Autowired
-    private compraService compraService;
-    @PostMapping("/add-compra")
-    public ResponseEntity<Object> addCompra(@RequestBody Compra compra){
-        return new ResponseEntity<>(compraService.addCompra(compra), HttpStatus.OK);
-    }
-
-    @Autowired
-    private purchasingProductService ppservice;
-    @PostMapping("/add-purchasingproduct")
-    public ResponseEntity<Object> addPurchasingProduct(@RequestBody PurchasingProducts purchasingProducts) {
-        PurchasingProducts novo = new PurchasingProducts();
-        Compra compra = compraService.getIdByName(purchasingProducts.getCompra());
-        Storage uni = storageService.getIdByName(purchasingProducts.getUni());
-        Storage produto = storageService.getIdByNameB(purchasingProducts.getProduct());
-        novo = new PurchasingProducts(0L,compra,produto,uni,purchasingProducts.getQuantity(),purchasingProducts.getValue());
-        try {
-            return new ResponseEntity<>(ppservice.addProducts(novo), HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        }
-    }
 
 
 }
+
+
+
+
+
 
 
 

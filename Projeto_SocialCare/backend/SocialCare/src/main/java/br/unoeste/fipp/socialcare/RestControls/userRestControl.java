@@ -104,10 +104,6 @@ public class userRestControl {
 
 
 
-    @GetMapping("/get-all-products")
-    public ResponseEntity<Object> getALlProducts() {
-        return new ResponseEntity<>(productService.getAll(),HttpStatus.OK);
-    }
 
 
     //State

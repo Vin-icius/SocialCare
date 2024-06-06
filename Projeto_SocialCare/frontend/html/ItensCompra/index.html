@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Itens de Compra</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <h2>Adicionar Itens de Compra</h2>
+    <form id="addItemsForm">
+        <label for="compraDesc">Nome da Compra:</label><br>
+        <select id="compraDesc" name="compraDesc" required>
+            <!-- Options serão preenchidas dinamicamente com os dados retornados pelo endpoint -->
+        </select><br><br>
+
+        <label for="produtoNome">Nome do Produto:</label><br>
+        <select id="produtoNome" name="produtoNome" required>
+            <!-- Options serão preenchidas dinamicamente com os dados retornados pelo endpoint -->
+        </select><br><br>
+
+        <label for="unidadeNome">Nome da Unidade:</label><br>
+        <select id="unidadeNome" name="unidadeNome" required>
+            <!-- Options serão preenchidas dinamicamente com os dados retornados pelo endpoint -->
+        </select><br><br>
+
+        <label for="quantity">Quantidade:</label><br>
+        <input type="number" id="quantity" name="quantity" required><br><br>
+
+        <label for="value">Valor:</label><br>
+        <input type="number" id="value" name="value" required><br><br>
+
+        <button type="submit">Adicionar Item de Compra</button>
+    </form>
+    <script src="script.js"></script>
+</body>
+</html>

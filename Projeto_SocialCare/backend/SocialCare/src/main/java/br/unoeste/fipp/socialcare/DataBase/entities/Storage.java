@@ -19,6 +19,8 @@ public class Storage {
     @Column(name="est_quantidade")
     private double quantidade;
     @Id
+    @Column(name = "est_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //Contructors

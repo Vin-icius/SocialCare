@@ -34,4 +34,8 @@ public class legalPersonService {
     public List<LegalPerson> getAll (){
         return giverRepo.findAll();
     }
+
+    public LegalPerson findByCnpj(String cnpj) {
+        return giverRepo.findBycnpj(cnpj);
+    }
 }

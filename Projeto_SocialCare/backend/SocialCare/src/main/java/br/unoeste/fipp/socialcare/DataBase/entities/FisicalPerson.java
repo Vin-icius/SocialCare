@@ -137,9 +137,9 @@ public class FisicalPerson extends Person{
         super.setEmail(email);
     }
 
-    @Override
-    public int getAtivo() {
-        return super.getAtivo();
+
+    public int getAtivo(int ativo) {
+        return ativo;
     }
 
     @Override

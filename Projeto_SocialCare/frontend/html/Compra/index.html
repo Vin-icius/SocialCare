@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Compra</title>
+</head>
+<body>
+    <h2>Adicionar Compra</h2>
+    <form id="addCompraForm">
+        <label for="cnpj">CNPJ da Pessoa Jurídica:</label><br>
+        <input type="text" id="cnpj" name="cnpj" required><br><br>
+
+        <label for="data">Data:</label><br>
+        <input type="date" id="data" name="data" required><br><br>
+
+        <label for="totalValue">Valor Total:</label><br>
+        <input type="number" id="totalValue" name="totalValue" step="0.01" required><br><br>
+
+        <label for="desc">Observação:</label><br>
+        <input type="text" id="desc" name="desc"><br><br>
+
+        <button type="submit">Adicionar Compra</button>
+    </form>
+
+    <script>
+        document.getElementById('addCompraForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio do formulário padrão
+
+            // Obtém os valores dos campos de entrada
+            const cnpj = document.getElementById('cnpj').value;
+            const data = document.getElementById('data').value;
+            const totalValue = parseFloat(document.getElementById('totalValue').value);
+            const desc = document.getElementById('desc').value;
+
+            // Dados do objeto a ser enviado no corpo da requisição
+            const requestBody = {
+                legalPerson: {
+                    cnpj: cnpj
+                },
+                date: data,
+                totalValue: totalValue,
+                desc: desc
+            };
+
+            // Configurações da requisição
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(requestBody)
+            };
+
+            // URL do endpoint
+            const url = 'http://localhost:8080/apis/citizen/manage-itens-compras/add-compra';
+
+            // Realizando a requisição
+            fetch(url, requestOptions)
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();
+                    }
+                    throw new Error('Erro ao adicionar compra');
+                })
+                .then(data => {
+                    alert(data); // Mensagem de sucesso
+                    // Limpar os campos do formulário após o sucesso
+                    document.getElementById('cnpj').value = '';
+                    document.getElementById('data').value = '';
+                    document.getElementById('totalValue').value = '';
+                    document.getElementById('desc').value = '';
+                })
+                .catch(error => {
+                    console.error('Erro:', error.message); // Mensagem de erro
+                });
+        });
+    </script>
+</body>
+</html>

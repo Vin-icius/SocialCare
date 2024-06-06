@@ -4,38 +4,128 @@ package br.unoeste.fipp.socialcare.DataBase.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="juridica")
-public class LegalPerson extends Person{
+@Table(name="pessoa_juridica")
+public class LegalPerson{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pesj_id")
+    private Long id;
+    @Column(name= "pesj_nome")
+    private String nome;
+    @Column(name="pesj_logradouro")
+    private String logradouro;
+    @Column(name="pesj_bairro")
+    private String bairro;
+    @Column(name="pesj_cep")
+    private String cep;
     @ManyToOne
-    @JoinColumn(name="genero_gen_id", nullable = false) // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
-    private Gender genero;
-
-    @Column(name="jur_cnpj")
+    @JoinColumn(name="cidade_cid_id", nullable = false)
+    private City cidade;
+    @Column(name="pesj_email")
+    private String email;
+    @Column(name = "pesj_ativo")
+    private Boolean ativo;
+    @Column(name = "pesj_cnpj")
     private String cnpj;
-    @Column(name="jur_ie")
+    @Column(name = "pesj_ie")
     private String ie;
-    @Column(name="jur_site")
+    @Column(name = "pesj_site")
     private String site;
 
-    public LegalPerson() {
-        this(0L,"","","","","",0,null,null,"","","");
-    }
 
-    public LegalPerson(Long id, String nome, String logradouro, String bairro, String cep, String email, int ativo,
-                       City city, Gender genero, String cnpj, String ie, String site) {
-        super(id, nome, logradouro, bairro, cep, email, ativo, city);
-        this.genero = genero;
+    public LegalPerson(Long id, String nome, String logradouro, String bairro, String cep, City cidade, String email, Boolean ativo, String cnpj, String ie, String site) {
+        this.id = id;
+        this.nome = nome;
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.email = email;
+        this.ativo = ativo;
         this.cnpj = cnpj;
         this.ie = ie;
         this.site = site;
     }
 
-    public Gender getGenero() {
-        return genero;
+    public LegalPerson() {
+         this(0L,null,null,null,null,null,null,true,null,null,null);
     }
 
-    public void setGenero(Gender genero) {
-        this.genero = genero;
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
+    public String getNome() {
+        return nome;
+    }
+
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
+    }
+
+
+    public String getBairro() {
+        return bairro;
+    }
+
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+
+    public String getCep() {
+        return cep;
+    }
+
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public City getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(City cidade) {
+        this.cidade = cidade;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
     }
 
     public String getCnpj() {
@@ -60,85 +150,5 @@ public class LegalPerson extends Person{
 
     public void setSite(String site) {
         this.site = site;
-    }
-
-    @Override
-    public String getNome() {
-        return super.getNome();
-    }
-
-    @Override
-    public void setNome(String nome) {
-        super.setNome(nome);
-    }
-
-    @Override
-    public Long getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Long id) {
-        super.setId(id);
-    }
-
-    @Override
-    public String getLogradouro() {
-        return super.getLogradouro();
-    }
-
-    @Override
-    public void setLogradouro(String logradouro) {
-        super.setLogradouro(logradouro);
-    }
-
-    @Override
-    public String getBairro() {
-        return super.getBairro();
-    }
-
-    @Override
-    public void setBairro(String bairro) {
-        super.setBairro(bairro);
-    }
-
-    @Override
-    public String getCep() {
-        return super.getCep();
-    }
-
-    @Override
-    public void setCep(String cep) {
-        super.setCep(cep);
-    }
-
-    @Override
-    public String getEmail() {
-        return super.getEmail();
-    }
-
-    @Override
-    public void setEmail(String email) {
-        super.setEmail(email);
-    }
-
-    @Override
-    public int getAtivo() {
-        return super.getAtivo();
-    }
-
-    @Override
-    public void setAtivo(int ativo) {
-        super.setAtivo(ativo);
-    }
-
-    @Override
-    public City getCity() {
-        return super.getCity();
-    }
-
-    @Override
-    public void setCity(City city) {
-        super.setCity(city);
     }
 }
