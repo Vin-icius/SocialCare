@@ -5702,8 +5702,10 @@ CREATE TABLE public.transferencia (
 CREATE TABLE public.acoes (
   aco_id SERIAL PRIMARY KEY,
   aco_dtacao VARCHAR(10) NOT NULL,
-  aco_descricao VARCHAR(120) NOT NULL,
-  usuario_usu_id INT NOT NULL,
+  aco_motivo VARCHAR(45) NOT NULL,
+  aco_descricao VARCHAR(120),
+  aco_idadecri VARCHAR(2) NOT NULL,
+  usuario_usu_id INT,
   pesf_id INT NOT NULL,
   CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES public.usuario (usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT fk_acoes_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION

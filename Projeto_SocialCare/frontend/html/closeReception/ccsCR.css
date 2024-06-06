@@ -38,10 +38,15 @@ label {
     color: #333;
 }
 
+label .required-field {
+    color: red;
+    margin-left: 5px;
+}
+
 input[type="text"],
-input[type="email"],
-input[type="file"],
-select {
+input[type="date"],
+textarea,
+input[type="number"] {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
@@ -50,7 +55,7 @@ select {
     margin-bottom: 10px;
 }
 
-input[type="submit"] {
+button[type="submit"] {
     width: 100%;
     padding: 10px;
     background-color: #336699;
@@ -61,7 +66,7 @@ input[type="submit"] {
     transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
+button[type="submit"]:hover {
     background-color: #265985;
 }
 

@@ -11,6 +11,10 @@ public class Action {
     private Long id;
     @Column(name="aco_dtacao")
     private String dtacao;
+    @Column(name="aco_idadecri")
+    private String idade;
+    @Column(name="aco_motivo")
+    private String motivo;
 
     @Column(name="aco_descricao")
     private String descricao;
@@ -25,15 +29,33 @@ public class Action {
 
 
     public Action() {
-        this(0L,"","",null,null);
+        this(0L,"","","","",null,null);
     }
 
-    public Action(Long id, String dtacao, String descricao, User usuario, FisicalPerson pessoa) {
+    public Action(Long id, String dtacao, String descricao,String idade, String motivo, User usuario, FisicalPerson pessoa) {
         this.id = id;
         this.dtacao = dtacao;
         this.descricao = descricao;
         this.usuario=usuario;
         this.pessoa=pessoa;
+        this.idade=idade;
+        this.motivo=motivo;
+    }
+
+    public String getIdade() {
+        return idade;
+    }
+
+    public void setIdade(String idade) {
+        this.idade = idade;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public Long getId() {

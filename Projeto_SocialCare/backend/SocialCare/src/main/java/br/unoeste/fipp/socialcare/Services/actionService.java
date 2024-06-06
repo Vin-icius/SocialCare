@@ -2,6 +2,7 @@ package br.unoeste.fipp.socialcare.Services;
 
 
 import br.unoeste.fipp.socialcare.DataBase.entities.Action;
+import br.unoeste.fipp.socialcare.DataBase.entities.FisicalPerson;
 import br.unoeste.fipp.socialcare.DataBase.repositories.actionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class actionService {
         }
         return true;
     }
+    //public List<Action> getAllByPessoa(FisicalPerson pessoa) {
+    //    return actionRepository.findByPessoa(pessoa);
+   // }
 
     public Action getById (Long id) {
         Action action = acRepo.findById(id).get();
