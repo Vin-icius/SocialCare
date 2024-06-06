@@ -28,6 +28,15 @@ public class registerDonationService {
         Donation donation = donationRepo.findById(id).get();
         return donation!=null;
     }
+    public boolean deleteById (Long id) {
+        try{
+            donationRepo.deleteById(id);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+    }
 
     public List<Donation> getAll() {
         return donationRepo.findAll();

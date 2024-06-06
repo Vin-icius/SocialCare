@@ -95,14 +95,11 @@ public class registerDonationControl {
                             donationService.addDonation(donation);
 
                             //Atualizar a tabela de Itens da doação
-                            dItens.setDoacao(donation);
-                            dItens.setProduto(produto);
                             dItens.setQuantidade(qtde1);
-                            dItens.setUnidade(unity);
                             ditService.addDonation(dItens);
 
                             //Atualizar o estoque
-                            Storage storage = null;
+                            //Storage storage = null;
                             //storage = stService.getById();
                         }
 
@@ -112,5 +109,23 @@ public class registerDonationControl {
         }
             return ResponseEntity.ok("Registrado com sucesso");
 
+    }
+
+    @GetMapping("/delete-donation")
+    public ResponseEntity<Object> deleteDonation (@RequestParam(value="doa_id") Long doa_id) {
+        if(donationService.deleteById(doa_id))
+            return new ResponseEntity<>("",HttpStatus.OK);
+        else
+            return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/get-donation")
+    public ResponseEntity<Object> getCategoryProduct (@RequestParam(value="doa_id") Long doa_id) {
+        return new ResponseEntity<>(donationService.getById(doa_id),HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-categories-product")
+    public ResponseEntity<Object> getAllCategoriesProduct() {
+        return new ResponseEntity<>(donationService.getAll(),HttpStatus.OK);
     }
 }
