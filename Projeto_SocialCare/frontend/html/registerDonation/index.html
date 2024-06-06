@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Doação</title>
+    <link rel="stylesheet" href="cssRD.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registrar Doação</h1>
+        <form id="donationForm">
+            <label for="donor">Doador:</label>
+            <input type="text" id="donor" name="donor" required>
+            
+            <label for="category">Categoria do Produto:</label>
+            <input type="text" id="category" name="category" required>
+            
+            <label for="product">Produto:</label>
+            <input type="text" id="product" name="product" required>
+            
+            <label for="donationDate">Data da Doação:</label>
+            <input type="date" id="donationDate" name="donationDate" required>
+            
+            <label for="donationTime">Hora da Doação:</label>
+            <input type="time" id="donationTime" name="donationTime" required>
+            
+            <button type="button" id="submitBtn">Registrar Doação</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <script src="jsRD.js"></script>
+</body>
+</html>
