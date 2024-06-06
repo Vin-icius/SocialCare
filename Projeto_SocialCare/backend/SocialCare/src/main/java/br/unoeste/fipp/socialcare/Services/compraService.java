@@ -26,6 +26,13 @@ public class compraService {
         return true;
     }
 
+    public Compra getIdByName(Compra compra)
+    {
+       Compra novo = compraRepo.findByProductName(compra.getDesc());
+
+       return novo;
+
+    }
     public Compra getById (Long id) {
         Compra Compra = compraRepo.findById(id).get();
         return Compra;

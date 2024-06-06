@@ -310,6 +310,31 @@ public class adminRestControl {
         return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
     }
 
+
+    @Autowired
+    private compraService compraService;
+    @PostMapping("/add-compra")
+    public ResponseEntity<Object> addCompra(@RequestBody Compra compra){
+        return new ResponseEntity<>(compraService.addCompra(compra), HttpStatus.OK);
+    }
+
+    @Autowired
+    private purchasingProductService ppservice;
+    @PostMapping("/add-purchasingproduct")
+    public ResponseEntity<Object> addPurchasingProduct(@RequestBody PurchasingProducts purchasingProducts) {
+        PurchasingProducts novo = new PurchasingProducts();
+        Compra compra = compraService.getIdByName(purchasingProducts.getCompra());
+        Storage uni = storageService.getIdByName(purchasingProducts.getUni());
+        Storage produto = storageService.getIdByNameB(purchasingProducts.getProduct());
+        novo = new PurchasingProducts(0L,compra,produto,uni,purchasingProducts.getQuantity(),purchasingProducts.getValue());
+        try {
+            return new ResponseEntity<>(ppservice.addProducts(novo), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }
 
 

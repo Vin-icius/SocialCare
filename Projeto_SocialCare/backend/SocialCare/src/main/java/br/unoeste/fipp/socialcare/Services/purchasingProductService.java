@@ -1,8 +1,13 @@
 package br.unoeste.fipp.socialcare.Services;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.CategoryProduct;
+import br.unoeste.fipp.socialcare.DataBase.entities.Compra;
 import br.unoeste.fipp.socialcare.DataBase.entities.PurchasingProducts;
+import br.unoeste.fipp.socialcare.DataBase.entities.Storage;
+import br.unoeste.fipp.socialcare.DataBase.repositories.CompraRepository;
 import br.unoeste.fipp.socialcare.DataBase.repositories.purchasingProductsRepository;
+import br.unoeste.fipp.socialcare.DataBase.repositories.storageRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +17,12 @@ import java.util.List;
 public class purchasingProductService {
     @Autowired
     private purchasingProductsRepository repo;
-    public PurchasingProducts addPurchasingProduct (PurchasingProducts purchasingProducts) {
-        return repo.save(purchasingProducts);
+
+
+    public PurchasingProducts addProducts (PurchasingProducts products) {
+        return repo.save(products);
     }
+
 
     public boolean deleteById (Long id) {
         try{
@@ -37,7 +45,7 @@ public class purchasingProductService {
     public boolean findByIdB(Long id)
     {
         try{
-            return repo.findById(id);
+           repo.findById(id);
 
         }catch (Exception e){
             return false;
