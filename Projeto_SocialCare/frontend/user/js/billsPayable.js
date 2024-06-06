@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const token = localStorage.getItem('token');
+    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbiIsImlzcyI6ImxvY2FsaG9zdDo4MDgwIiwibml2ZWwiOiIxIiwiaWF0IjoxNzE3NzEzMzYyLCJleHAiOjE3MTc3MTQyNjJ9.xTiweeLXvfsr1x6ZX4EMOFldp9t34iaPsC9WPfAKLR8'; //localStorage.getItem('token');
     if (!token) {
         alert('Você precisa estar logado para acessar esta página.');
         window.location.href = 'login.html';
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <td>${formatValue(bill.valor)}</td>
                 <td>${bill.descricao}</td>
                 <td class="actions">
-                    <button class="edit" onclick="editBill(${bill.id}, '${bill.pessoaPesId}', '${bill.compraComId}', '${bill.dtEmissao}', '${bill.dtVencto}', ${bill.valor}, '${bill.descricao}')">Editar</button>
+                    <button class="edit" onclick="editBill(${bill.id}, '${bill.pessoaPesId}', 'null', '${bill.dtEmissao}', '${bill.dtVencto}', ${bill.valor}, '${bill.descricao}')">Editar</button>
                     <button class="delete" onclick="deleteBill(${bill.id})">Excluir</button>
                 </td>
             `;
@@ -70,12 +70,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function validateForm() {
+        const dtEmissao = document.getElementById('dtEmissao').value;
+        const dtVencto = document.getElementById('dtVencto').value;
+        const valor = parseFloat(document.getElementById('valor').value);
+
+        const today = new Date().toISOString().split('T')[0];
+        if (dtEmissao > today) {
+            alert('A data de emissão não pode ser maior que hoje.');
+            return false;
+        }
+
+        if (dtVencto < dtEmissao) {
+            alert('A data de vencimento não pode ser menor que a data de emissão.');
+            return false;
+        }
+
+        if (valor <= 0) {
+            alert('O valor deve ser positivo e diferente de zero.');
+            return false;
+        }
+
+        return true;
+    }
+
     document.getElementById('bill-form').addEventListener('submit', async function (event) {
         event.preventDefault();
 
+        if (!validateForm()) {
+            return;
+        }
+
         const id = document.getElementById('bill-id').value;
         const pessoaPesId = document.getElementById('pessoaPesId').value;
-        const compraComId = document.getElementById('compraComId').value;
+        const compraComId = null //document.getElementById('compraComId').value;
         const dtEmissao = document.getElementById('dtEmissao').value;
         const dtVencto = document.getElementById('dtVencto').value;
         const valor = document.getElementById('valor').value;
@@ -120,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.editBill = function (id, pessoaPesId, compraComId, dtEmissao, dtVencto, valor, descricao) {
         document.getElementById('bill-id').value = id;
         document.getElementById('pessoaPesId').value = pessoaPesId;
-        document.getElementById('compraComId').value = compraComId || '';
+        //document.getElementById('compraComId').value = compraComId || '';
         document.getElementById('dtEmissao').value = dtEmissao.split('T')[0];
         document.getElementById('dtVencto').value = dtVencto.split('T')[0];
         document.getElementById('valor').value = valor.toFixed(2);
