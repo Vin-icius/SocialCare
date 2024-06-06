@@ -1,48 +1,58 @@
+// Função para carregar as cidades no select ao carregar a página
+// Função para preencher as opções do campo de seleção de cidade
+function openParam() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://localhost:8080/apis/admin/get-all-cities', true);
+
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            var cities = JSON.parse(xhr.responseText);
+            var select = document.getElementById('cidade_cid_id');
+            cities.forEach(function(city) {
+                var option = document.createElement('option');
+                option.value = city.id;
+                option.textContent = city.nome;
+                select.appendChild(option);
+            });
+        } else {
+            alert('Erro ao carregar as cidades.');
+        }
+    };
+
+    xhr.onerror = function() {
+        alert('Erro ao carregar as cidades.');
+    };
+
+    xhr.send();
+}
+
 // Função para adicionar uma nova parametrização
-function addParam() {
-    const URL="http://localhost:8080/apis/parametrization/add-param";
-    var parForm = document.getElementById("formCadPar");
+function addParam(event) {
+    event.preventDefault();  // Previne o comportamento padrão de submissão do formulário
+    
+    const URL = "http://localhost:8080/apis/parametrization/add-param";
+    const parForm = document.getElementById("formCadPar");
     
     fetch(URL, {
-        method: 'POST', body: new FormData(parForm),
+        method: 'POST',
+        body: new FormData(parForm)
     })
-        .then(resp=> {
-            return resp.text();
-        })
-        .then(text=> {
-            console.log("Deu certo!");
-        }).catch(error=> {
-            console.error(error);
-        });
+    .then(resp => {
+        if (!resp.ok) {
+            throw new Error(`HTTP error! status: ${resp.status}`);
+        }
+        return resp.text();
+    })
+    .then(text => {
+        console.log("Resposta do servidor:", text);
+    })
+    .catch(error => {
+        console.error("Erro ao adicionar parametrização:", error);
+    });
 }
 
+// Adiciona o event listener ao formulário para prevenir o comportamento padrão ao submeter
+document.getElementById("formCadPar").addEventListener("submit", addParam);
 
-//Onlaod da page para carregar cidades
-
-function openParam()
-{
-    const URL="http://localhost:8080/apis/admin/get-all-cities";
-    const tag = document.getElementById("cidade_cid_id_form");
-
-    fetch(URL, {
-        method: 'GET', body: new FormData(tag)
-    })
-        .then(resp=>{
-            return resp.json()
-            .then(json=>{
-
-                let list=`<select id="cidade_cid_id" name="cidade_cid_id" required>`
-                for (let data of json)
-                {
-                    console.log(data);
-                    list+=`<option value="${data.id}">${data.nome}</option>`
-                }
-                
-                list+=`</select><br><br>`
-                tag.innerHTML=list;
-            })
-        })
-        .catch(Err=>{
-            console.error="Erro"+Err;
-        })
-}
+// Carrega as cidades no select ao carregar a página
+document.addEventListener("DOMContentLoaded", openParam);
