@@ -1,5 +1,5 @@
 package br.unoeste.fipp.socialcare.RestControls.useCases;
-import br.unoeste.fipp.socialcare.DataBase.entities.City;
+import br.unoeste.fipp.socialcare.DataBase.entities.*;
 import br.unoeste.fipp.socialcare.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,32 +39,32 @@ public class registerDonationControl {
     private storageService stService;
     @Autowired
     private cityService ctService;
+    @Autowired
+    private registerDonationService donationService;
 
 
     @PostMapping("/register-donation")
-    public ResponseEntity<Object> registerDonation(@RequestParam String cat_id,
-                                                   @RequestParam String pro_id,
-                                                   @RequestParam String pesf_id,
-                                                   @RequestParam String cid_id) {
+    public ResponseEntity<Object> registerDonation(@RequestBody Donation donation) {
         try {
-            paramService.editParam(param);
+
+            // Buscar a pessoa física pelo CPF
+            FisicalPerson pessoa = donation.getPessoa();
+            pessoa = fpService.getByCpf(pessoa.getCpf());
+            Product
+            if (pessoa == null) {
+                return ResponseEntity.badRequest().body("Pessoa física não encontrada para o CPF: " + pessoa.getCpf());
+            }
+            else
+                if(!pessoa.getAtivo()){
+                    return ResponseEntity.badRequest().body("Pessoa física não está ativa");
+                }
+                else
+                    if
+                    donationService.addDonation(donation);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao registrar doação" + e.getMessage());
         }
             return ResponseEntity.ok("Registrado com sucesso");
 
     }
-
-    @GetMapping("/verify-param")
-
-    public ResponseEntity<Object> verifyParam(){
-        boolean flag = paramService.getByIdB(1L);
-        if(flag)
-            return  ResponseEntity.ok("Parametrização existe!");
-        else
-            return ResponseEntity.badRequest().body("Parametrização não existe.");
-    }
-
-
-
 }
