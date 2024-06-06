@@ -44,13 +44,26 @@ public class registerDonationControl {
 
 
     @PostMapping("/register-donation")
-    public ResponseEntity<Object> registerDonation(@RequestBody Donation donation) {
+    public ResponseEntity<Object> registerDonation(@RequestParam String donor,
+                                                   @RequestParam String category,
+                                                   @RequestParam String product,
+                                                   @RequestParam String obs,
+                                                   @RequestParam String donationData,
+                                                   @RequestParam String donationTime) {
         try {
 
             // Buscar a pessoa física pelo CPF
-            FisicalPerson pessoa = donation.getPessoa();
-            pessoa = fpService.getByCpf(pessoa.getCpf());
-            Product
+            FisicalPerson pessoa;
+            pessoa = fpService.getByCpf(donor);
+
+            Long cat_prod1 = Long.parseLong(category);
+            CategoryProduct catprod;
+            catprod = cpService.getById(cat_prod1);
+
+            Long prod1 = Long.parseLong(product);
+            Product produto;
+            produto = pdService.getById(prod1);
+
             if (pessoa == null) {
                 return ResponseEntity.badRequest().body("Pessoa física não encontrada para o CPF: " + pessoa.getCpf());
             }
@@ -59,8 +72,20 @@ public class registerDonationControl {
                     return ResponseEntity.badRequest().body("Pessoa física não está ativa");
                 }
                 else
-                    if
-                    donationService.addDonation(donation);
+                    if(catprod == null)
+                        return ResponseEntity.badRequest().body("Categoria de produtos não encontrada para o ID: " + catprod.getId());
+                    else
+                        if(product == null)
+                            return ResponseEntity.badRequest().body("Produto não encontrado para o ID: " + produto.getId());
+                        else{
+                            Donation donation = new Donation();
+                            donation.setData(donationData+" "+donationTime);
+                            donation.setPessoa(pessoa);
+                            donation.setObservacao(obs);
+                            donationService.addDonation(donation);
+                        }
+
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro ao registrar doação" + e.getMessage());
         }
