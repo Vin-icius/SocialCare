@@ -1,25 +1,28 @@
 document.getElementById('submitBtn').addEventListener('click', async function() {
-    const donor = document.getElementById('donor').value;
-    const category = document.getElementById('category').value;
-    const product = document.getElementById('product').value;
-    const donationDate = document.getElementById('donationDate').value;
-    const donationTime = document.getElementById('donationTime').value;
 
     const data = {
-        donor,
-        category,
-        product,
-        donationDate,
-        donationTime
+        donor:document.getElementById('donor').value,
+        category:document.getElementById('category').value,
+        product:document.getElementById('product').value,
+        obs:document.getElementById('obs').value,
+        donationDate:document.getElementById('donationDate').value,
+        donationTime:document.getElementById('donationTime').value
     };
 
+
+    const formData = new FormData();
+    formData.append('donor', data.donor);
+    formData.append('category', data.category);
+    formData.append('product', data.product);
+    formData.append('obs', data.obs);
+    formData.append('donationDate', data.donationDate);
+    formData.append('donationTime', data.donationTime);
+
+    
     try {
-        const response = await fetch('http://localhost:8080/registerDonation', {
+        const response = await fetch('http://localhost:8080/apis/registerDonation', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const result = await response.json();
