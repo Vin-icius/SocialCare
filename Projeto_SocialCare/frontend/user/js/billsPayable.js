@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkBhZG1pbiIsImlzcyI6ImxvY2FsaG9zdDo4MDgwIiwibml2ZWwiOiIxIiwiaWF0IjoxNzE3NzEzMzYyLCJleHAiOjE3MTc3MTQyNjJ9.xTiweeLXvfsr1x6ZX4EMOFldp9t34iaPsC9WPfAKLR8'; //localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (!token) {
         alert('Você precisa estar logado para acessar esta página.');
         window.location.href = 'login.html';
