@@ -20,10 +20,10 @@ public class User {
     @Column(name="usu_ativo")
     private boolean active;
 
-    //Foreign Key
+    /*//Foreign Key
     @ManyToOne
     @JoinColumn(name="fisica_pessoa_pes_id", nullable = true)
-    private FisicalPerson fisicalPerson;
+    private FisicalPerson fisicalPerson;*/
 
     public User() {
         this(0L,"","");
@@ -79,13 +79,13 @@ public class User {
         this.active = active;
     }
 
-    public FisicalPerson getFisicalPerson() {
+    /*public FisicalPerson getFisicalPerson() {
         return fisicalPerson;
     }
 
     public void setFisicalPerson(FisicalPerson fisicalPerson) {
         this.fisicalPerson = fisicalPerson;
-    }
+    }*/
 
     public boolean hasFullAccess() {
         return this.level == 1;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Usuário</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="content">
+        <h2>Cadastro de Usuário</h2>
+        <form id="user-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div class="error" id="email-error"></div>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+            <div class="error" id="password-error"></div>
+
+            <input type="submit" value="Cadastrar">
+            <div id="message"></div>
+        </form>
+    </div>
+    <script src="/js/add.js"></script>
+</body>
+</html>

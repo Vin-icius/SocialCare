@@ -5644,15 +5644,15 @@ CREATE TABLE public.pessoa_juridica (
 
 CREATE TABLE public.usuario (
   usu_id SERIAL PRIMARY KEY,
-  pesf_id INT NOT NULL,
+  pesf_id INT,
   usu_email VARCHAR(256) NOT NULL,
   usu_senha VARCHAR(20) NOT NULL,
   usu_nivel INT,
   usu_ativo BOOLEAN,
-  UNIQUE (usu_id),
-  CONSTRAINT fk_usuario_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  UNIQUE (usu_id)
 );
 
+INSERT INTO public.usuario (usu_email, usu_senha, usu_nivel, usu_ativo) VALUES ('admin@admin', '123', 1, true);
 
 CREATE TABLE public.plano (
   pla_id SERIAL PRIMARY KEY,
@@ -5781,15 +5781,15 @@ CREATE TABLE public.itens_compra (
 
 CREATE TABLE public.contas_pagar (
   cpg_id SERIAL PRIMARY KEY,
-  compra_com_id INT NOT NULL,
+  pessoa_pes_id INT,
+  compra_com_id INT,
   cpg_dtemissao TIMESTAMP NOT NULL,
   cpg_numparc INT NOT NULL,
   cpg_dtvencto TIMESTAMP NOT NULL,
   cpg_valor DOUBLE PRECISION NOT NULL,
   cpg_descricao VARCHAR(120),
   cpg_dtpagto TIMESTAMP,
-  cpg_valorpago DOUBLE PRECISION,
-  CONSTRAINT fk_contas_pagar_compra1 FOREIGN KEY (compra_com_id) REFERENCES public.compra (com_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  cpg_valorpago DOUBLE PRECISION
 );
 
 CREATE TABLE public.parametrizacao (

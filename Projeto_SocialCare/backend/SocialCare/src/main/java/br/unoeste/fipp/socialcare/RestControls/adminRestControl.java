@@ -5,12 +5,7 @@ import br.unoeste.fipp.socialcare.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value="apis/admin/")
@@ -318,7 +313,7 @@ public class adminRestControl {
         }
     }
 
-    @GetMapping("/delete-user")
+    /*@GetMapping("/delete-user")
     public ResponseEntity<Object> deleteUser(@RequestParam(value="id") Long id) {
         try {
             if (userService.deleteById(id)) {
@@ -329,7 +324,7 @@ public class adminRestControl {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
     @GetMapping("/get-user")
     public ResponseEntity<Object> getUser(@RequestParam(value="pro_id") Long pro_id) {
@@ -340,7 +335,44 @@ public class adminRestControl {
     public ResponseEntity<Object> getAllUsers() {
         return new ResponseEntity<>(userService.getAll(),HttpStatus.OK);
     }
+    //---
 
+    // ContasPagar
+    @Autowired
+    private billsPayableService billsPayableService;
+
+    @PostMapping("/add-bills-payable")
+    public ResponseEntity<Object> addBillsPayable (@RequestBody BillsPayable billsPayable) {
+        return new ResponseEntity<>(billsPayableService.addBillsPayable(billsPayable), HttpStatus.OK);
+    }
+
+    @PutMapping("/update-bills-payable")
+    public ResponseEntity<Object> updateBillsPayable (@RequestBody BillsPayable billsPayable) {
+        try {
+            return new ResponseEntity<>(billsPayableService.updateBillsPayable(billsPayable), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/delete-bills-payable")
+    public ResponseEntity<Object> deleteBillsPayable (@RequestParam(value="cpg_id") Long cpg_id) {
+        if (billsPayableService.deleteById(cpg_id))
+            return new ResponseEntity<>("", HttpStatus.OK);
+        else
+            return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/get-bills-payable")
+    public ResponseEntity<Object> getBillsPayable (@RequestParam(value="cpg_id") Long cpg_id) {
+        return new ResponseEntity<>(billsPayableService.getById(cpg_id), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-all-bills-payables")
+    public ResponseEntity<Object> getAllBillsPayable () {
+        return new ResponseEntity<>(billsPayableService.getAll(), HttpStatus.OK);
+    }
+    //---
 }
 
 
