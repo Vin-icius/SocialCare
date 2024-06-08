@@ -4,6 +4,7 @@ import br.unoeste.fipp.socialcare.DataBase.entities.User;
 import br.unoeste.fipp.socialcare.Security.JWTTokenProvider;
 import br.unoeste.fipp.socialcare.Services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,18 +17,15 @@ public class accessRestControl {
         @PostMapping(value="/login")
         public ResponseEntity<Object> login(@RequestBody User user){
                 try {
-                        // Verifica se o usuário está cadastrado
                         User existingUser = userService.getByEmail(user.getEmail());
                         if(existingUser == null) {
                                 return ResponseEntity.badRequest().body("Usuário não cadastrado");
                         }
 
-                        // Verifica se o usuário está ativo
                         if(!existingUser.isActive()) {
                                 return ResponseEntity.badRequest().body("Usuário inativo");
                         }
 
-                        // Compara a senha fornecida pelo usuário com a senha armazenada no banco de dados
                         if(existingUser.getPassword().equals(user.getPassword())) {
                                 // Gera o token JWT
                                 String token = JWTTokenProvider.getToken(existingUser.getEmail(), String.valueOf(existingUser.getLevel()));
