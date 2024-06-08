@@ -5600,76 +5600,71 @@ INSERT INTO public.cidade (cid_nome, estado_est_id) VALUES ('Tupiratins', 27);
 INSERT INTO public.cidade (cid_nome, estado_est_id) VALUES ('Wanderlândia', 27);
 INSERT INTO public.cidade (cid_nome, estado_est_id) VALUES ('Xambioá', 27);
 
-CREATE TABLE public.pessoa (
-  pes_id SERIAL PRIMARY KEY,
-  pes_nome VARCHAR(50) NOT NULL,
-  pes_logradouro VARCHAR(50),
-  pes_bairro VARCHAR(50),
-  pes_cep VARCHAR(9),
-  cidade_cid_id INT,
-  pes_email VARCHAR(256),
-  pes_ativo BOOLEAN NOT NULL,
-  CONSTRAINT fk_pessoa_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
-
 CREATE TABLE public.genero (
   gen_id SERIAL PRIMARY KEY,
   gen_nome VARCHAR(50) NOT NULL
 );
-
 INSERT INTO public.genero (gen_nome) VALUES ('Masculino');
 INSERT INTO public.genero (gen_nome) VALUES ('Feminino');
-INSERT INTO public.genero (gen_nome) VALUES ('Não-Binário');
 
-CREATE TABLE public.fisica (
-  pessoa_pes_id INT PRIMARY KEY,
-  fis_cpf VARCHAR(11) NOT NULL,
-  fis_rg VARCHAR(15),
-  fis_dtnascimento TIMESTAMP,
+
+CREATE TABLE public.pessoa_fisica (
+  pesf_id SERIAL PRIMARY KEY,
+  pesf_nome VARCHAR(50) NOT NULL,
+  pesf_logradouro VARCHAR(50),
+  pesf_bairro VARCHAR(50),
+  pesf_cep VARCHAR(9),
+  cidade_cid_id INT,
+  pesf_email VARCHAR(256),
+  pesf_ativo BOOLEAN NOT NULL,
+  pesf_cpf VARCHAR(11) NOT NULL,
+  pesf_rg VARCHAR(15),
+  pesf_dtnascimento VARCHAR(10),
   genero_gen_id INT,
-  CONSTRAINT fk_fisica_pessoa FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_pessoa_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT fk_fisica_genero1 FOREIGN KEY (genero_gen_id) REFERENCES public.genero (gen_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE public.juridica (
-  pessoa_pes_id INT PRIMARY KEY,
-  jur_cnpj VARCHAR(18) NOT NULL,
-  jur_ie VARCHAR(15) NOT NULL,
-  jur_site VARCHAR(256),
-  CONSTRAINT fk_juridica_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE public.pessoa_juridica (
+  pesj_id SERIAL PRIMARY KEY,
+  pesj_nome VARCHAR(50) NOT NULL,
+  pesj_logradouro VARCHAR(50),
+  pesj_bairro VARCHAR(50),
+  pesj_cep VARCHAR(9),
+  cidade_cid_id INT,
+  pesj_email VARCHAR(256),
+  pesj_ativo BOOLEAN NOT NULL,
+  pesj_cnpj VARCHAR(18) NOT NULL,
+  pesj_ie VARCHAR(14) NOT NULL,
+  pesj_site VARCHAR(256),
+  CONSTRAINT fk_pessoa_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+
 
 CREATE TABLE public.usuario (
   usu_id SERIAL PRIMARY KEY,
-  fisica_pessoa_pes_id INT,
+  pesf_id INT NOT NULL,
   usu_email VARCHAR(256) NOT NULL,
   usu_senha VARCHAR(20) NOT NULL,
   usu_nivel INT,
   usu_ativo BOOLEAN,
   UNIQUE (usu_id),
-  CONSTRAINT fk_usuario_fisica1 FOREIGN KEY (fisica_pessoa_pes_id) REFERENCES public.fisica (pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_usuario_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-INSERT INTO public.usuario (usu_email, usu_senha, usu_nivel, usu_ativo) VALUES ('admin@admin', '123', 1, true);
 
 CREATE TABLE public.plano (
   pla_id SERIAL PRIMARY KEY,
-  pla_dtinicio TIMESTAMP NOT NULL,
-  pla_dtfim TIMESTAMP,
+  pla_dtinicio VARCHAR(10) NOT NULL,
+  pla_dtfim VARCHAR(10),
   pla_observacao VARCHAR(120),
   usuario_usu_id INT NOT NULL,
-  CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES public.usuario (usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  pesf_id INT NOT NULL,
+  CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES public.usuario (usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_acoes_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-CREATE TABLE public.acoes (
-  aco_id SERIAL PRIMARY KEY,
-  plano_pla_id INT NOT NULL,
-  aco_dtacao TIMESTAMP NOT NULL,
-  aco_descricao VARCHAR(120) NOT NULL,
-  fisica_pessoa_pes_id INT NOT NULL,
-  CONSTRAINT fk_acoes_plano1 FOREIGN KEY (plano_pla_id) REFERENCES public.plano (pla_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT fk_acoes_fisica1 FOREIGN KEY (fisica_pessoa_pes_id) REFERENCES public.fisica (pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
 
 CREATE TABLE public.unidade (
   uni_id SERIAL PRIMARY KEY,
@@ -5690,10 +5685,10 @@ CREATE TABLE public.visita (
 
 CREATE TABLE public.envolvidos (
   visita_vis_id INT NOT NULL,
-  pessoa_pes_id INT NOT NULL,
-  PRIMARY KEY (visita_vis_id, pessoa_pes_id),
+  pesf_id INT NOT NULL,
+  PRIMARY KEY (visita_vis_id, pesf_id),
   CONSTRAINT fk_visita_has_pessoa_visita1 FOREIGN KEY (visita_vis_id) REFERENCES public.visita (vis_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT fk_visita_has_pessoa_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_visita_has_pessoa_pessoa1 FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE public.transferencia (
@@ -5702,6 +5697,17 @@ CREATE TABLE public.transferencia (
   tra_data TIMESTAMP NOT NULL,
   tra_observacao VARCHAR(120),
   CONSTRAINT fk_transferencia_unidade1 FOREIGN KEY (unidade_uni_id) REFERENCES public.unidade (uni_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+CREATE TABLE public.acoes (
+  aco_id SERIAL PRIMARY KEY,
+  aco_dtacao VARCHAR(10) NOT NULL,
+  aco_descricao VARCHAR(120) NOT NULL,
+  usuario_usu_id INT NOT NULL,
+  pesf_id INT NOT NULL,
+  CONSTRAINT fk_plano_usuario1 FOREIGN KEY (usuario_usu_id) REFERENCES public.usuario (usu_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT fk_acoes_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  
 );
 
 CREATE TABLE public.categoria (
@@ -5736,11 +5742,12 @@ CREATE TABLE public.itens_transferencia (
 
 CREATE TABLE public.doacao (
   doa_id SERIAL PRIMARY KEY,
-  pessoa_pes_id INT NOT NULL,
+  pesf_id INT NOT NULL,
   doa_data TIMESTAMP NOT NULL,
   doa_observacao VARCHAR(120),
-  CONSTRAINT fk_doacao_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_doacao_pessoa_fisica FOREIGN KEY (pesf_id) REFERENCES public.pessoa_fisica (pesf_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
 
 CREATE TABLE public.itens_doacao (
   doacao_doa_id INT PRIMARY KEY,
@@ -5757,8 +5764,9 @@ CREATE TABLE public.compra (
   com_vlrotal DOUBLE PRECISION NOT NULL,
   com_observacao VARCHAR(120),
   juridica_pessoa_pes_id INT NOT NULL,
-  CONSTRAINT fk_compra_juridica1 FOREIGN KEY (juridica_pessoa_pes_id) REFERENCES public.juridica (pessoa_pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_compra_pessoa_juridica FOREIGN KEY (juridica_pessoa_pes_id) REFERENCES public.pessoa_juridica (pesj_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
 
 CREATE TABLE public.itens_compra (
   compra_com_id INT NOT NULL,
@@ -5773,16 +5781,15 @@ CREATE TABLE public.itens_compra (
 
 CREATE TABLE public.contas_pagar (
   cpg_id SERIAL PRIMARY KEY,
-  pessoa_pes_id INT,
-  compra_com_id INT,
+  compra_com_id INT NOT NULL,
   cpg_dtemissao TIMESTAMP NOT NULL,
+  cpg_numparc INT NOT NULL,
   cpg_dtvencto TIMESTAMP NOT NULL,
   cpg_valor DOUBLE PRECISION NOT NULL,
   cpg_descricao VARCHAR(120),
   cpg_dtpagto TIMESTAMP,
   cpg_valorpago DOUBLE PRECISION,
-  CONSTRAINT fk_contaspagar_pessoa1 FOREIGN KEY (pessoa_pes_id) REFERENCES public.pessoa (pes_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT fk_contaspagar_compra1 FOREIGN KEY (compra_com_id) REFERENCES public.compra (com_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT fk_contas_pagar_compra1 FOREIGN KEY (compra_com_id) REFERENCES public.compra (com_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE public.parametrizacao (
@@ -5800,3 +5807,7 @@ CREATE TABLE public.parametrizacao (
   par_logopequena VARCHAR(20),
   CONSTRAINT fk_parametrizacao_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+
+
+
