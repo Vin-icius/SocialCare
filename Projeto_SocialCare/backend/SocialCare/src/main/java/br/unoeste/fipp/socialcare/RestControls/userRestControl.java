@@ -15,6 +15,15 @@ public class userRestControl {
         return "connected";
     }
 
+    //Gender
+    @Autowired
+    private genderService genderService;
+
+    @GetMapping("/get-all-genders")
+    public ResponseEntity<Object> getAllGenders() {
+        return new ResponseEntity<>(genderService.getAll(),HttpStatus.OK);
+    }
+
     //CategoryProduct
     @Autowired
     private categoryProductService categoryProductService;
