@@ -15,9 +15,10 @@ public class JWTTokenProvider {
     private static final SecretKey CHAVE = Keys.hmacShaKeyFor(
             "MINHACHAVESECRETA_MINHACHAVESECRETA".getBytes(StandardCharsets.UTF_8));
 
-    static public String getToken(String usuario, String nivel) {
+    static public String getToken(String usuario,String nivel)
+    {
         String jwtToken = Jwts.builder()
-                .setSubject(usuario)
+                .setSubject("usuario")
                 .setIssuer("localhost:8080")
                 .claim("nivel", nivel)
                 .setIssuedAt(new Date())
@@ -28,7 +29,8 @@ public class JWTTokenProvider {
         return jwtToken;
     }
 
-    static public boolean verifyToken(String token) {
+    static public boolean verifyToken(String token)
+    {
         try {
             Jwts.parserBuilder()
                     .setSigningKey(CHAVE)
@@ -41,8 +43,9 @@ public class JWTTokenProvider {
         return false;
     }
 
-    static public Claims getAllClaimsFromToken(String token) {
-        Claims claims = null;
+    static public Claims getAllClaimsFromToken(String token)
+    {
+        Claims claims=null;
         try {
             claims = Jwts.parserBuilder()
                     .setSigningKey(CHAVE)

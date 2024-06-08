@@ -14,7 +14,7 @@ public class userService {
 
     public User addUser(User user) {
         if (userRepo.existsByEmail(user.getEmail())) {
-            throw new IllegalArgumentException("Login já existente");
+            throw new IllegalArgumentException("Login already exists");
         }
         return userRepo.save(user);
     }
@@ -22,29 +22,15 @@ public class userService {
     public User updateUser(User user) {
         User existingUser = userRepo.findById(user.getId()).orElse(null);
         if (existingUser == null) {
-            throw new IllegalArgumentException("Usuário não encontrado");
+            throw new IllegalArgumentException("User not found");
         }
-
-        boolean isChangingFullAccess = existingUser.hasFullAccess() && !user.hasFullAccess();
-        boolean isOnlyActiveFullAccessUser = userRepo.countByFullAccessAndActive() <= 1;
-
-        if (isChangingFullAccess && isOnlyActiveFullAccessUser) {
-            throw new IllegalArgumentException("Não é possível alterar o nível de acesso do último usuário com acesso total");
+        if (existingUser.hasFullAccess() && !user.isActive() && userRepo.countByFullAccessAndActive() <= 1) {
+            throw new IllegalArgumentException("Cannot deactivate the last user with full access");
         }
-
-        if (existingUser.hasFullAccess() && !user.isActive() && isOnlyActiveFullAccessUser) {
-            throw new IllegalArgumentException("Não é possível desativar o último usuário com acesso total");
-        }
-
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        existingUser.setLevel(user.getLevel());
-        existingUser.setActive(user.isActive());
-
-        return userRepo.save(existingUser);
+        return userRepo.save(user);
     }
 
-    /*public boolean deleteById(Long id) {
+    public boolean deleteById(Long id) {
         User user = userRepo.findById(id).orElse(null);
         if (user == null) {
             return false;
@@ -58,7 +44,7 @@ public class userService {
             return false;
         }
         return true;
-    }*/
+    }
 
     public User getById(Long id) {
         return userRepo.findById(id).orElse(null);
