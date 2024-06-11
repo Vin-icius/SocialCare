@@ -32,6 +32,11 @@ public class productService {
         return product;
     }
 
+//    public Product getByName (String name) {
+//        Product product = productRepo.findByName(name);
+//        return product;
+//    }
+
     public List<Product> getAll() {
         return productRepo.findAll();
     }

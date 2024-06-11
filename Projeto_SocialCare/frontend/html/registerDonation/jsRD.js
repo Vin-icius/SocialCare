@@ -48,35 +48,29 @@ document.addEventListener('DOMContentLoaded', function () {
             donationData,
             donationTime,
             unidade,
+            products  // Incluindo a lista de produtos
         };
 
-        for (const productItem of products) {
-            const data = new URLSearchParams(baseData);
-            data.append('category', productItem.category);
-            data.append('product', productItem.product);
-            data.append('qtde', productItem.qtde);
+        try {
+            const response = await fetch('http://localhost:8080/register-donation/register-donation-2', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(baseData), // Convertendo para uma string JSON
+            });
 
-            try {
-                const response = await fetch('http://localhost:8080/apis/register-donation', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: data,
-                });
-
-                if (!response.ok) {
-                    throw new Error('Erro ao registrar doação');
-                }
-            } catch (error) {
-                alert(error.message);
-                return;
+            if (!response.ok) {
+                throw new Error('Erro ao registrar doação');
             }
-        }
 
-        alert('Doação registrada com sucesso');
-        donationForm.reset();
-        productList.innerHTML = '';
-        products = [];
+            alert('Doação registrada com sucesso');
+            donationForm.reset();
+            productList.innerHTML = '';
+            products = [];
+        } catch (error) {
+            alert(error.message);
+        }
     });
 });

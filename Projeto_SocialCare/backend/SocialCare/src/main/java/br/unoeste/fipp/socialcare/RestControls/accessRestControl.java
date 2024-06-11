@@ -1,7 +1,7 @@
 package br.unoeste.fipp.socialcare.RestControls;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.User;
-import br.unoeste.fipp.socialcare.Security.JWTTokenProvider;
+//import br.unoeste.fipp.socialcare.Security.JWTTokenProvider;
 import br.unoeste.fipp.socialcare.Services.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +28,9 @@ public class accessRestControl {
 
                         if(existingUser.getPassword().equals(user.getPassword())) {
                                 // Gera o token JWT
-                                String token = JWTTokenProvider.getToken(existingUser.getEmail(), String.valueOf(existingUser.getLevel()));
-                                return ResponseEntity.ok(token);
+//                                String token = JWTTokenProvider.getToken(existingUser.getEmail(), String.valueOf(existingUser.getLevel()));
+//                                return ResponseEntity.ok(token);
+                                return null;
                         } else {
                                 return ResponseEntity.badRequest().body("Senha incorreta");
                         }

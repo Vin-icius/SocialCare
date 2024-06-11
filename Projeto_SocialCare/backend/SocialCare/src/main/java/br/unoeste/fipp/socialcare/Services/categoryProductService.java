@@ -31,6 +31,11 @@ public class categoryProductService {
         return categoryProduct;
     }
 
+//    public CategoryProduct getByName (String name) {
+//        CategoryProduct categoryProduct = categoryProductRepo.findByName(name);
+//        return categoryProduct;
+//    }
+
     public List<CategoryProduct> getAll() {
         return categoryProductRepo.findAll();
     }
