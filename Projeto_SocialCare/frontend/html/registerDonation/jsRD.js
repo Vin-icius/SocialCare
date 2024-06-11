@@ -1,38 +1,82 @@
-document.getElementById('submitBtn').addEventListener('click', async function() {
+document.addEventListener('DOMContentLoaded', function () {
+    const productForm = document.getElementById('product-form');
+    const addProductBtn = document.getElementById('add-product-btn');
+    const addToListBtn = document.getElementById('add-to-list-btn');
+    const productList = document.getElementById('product-list');
+    const donationForm = document.getElementById('donation-form');
 
-    const data = {
-        donor:document.getElementById('donor').value,
-        category:document.getElementById('category').value,
-        product:document.getElementById('product').value,
-        obs:document.getElementById('obs').value,
-        donationDate:document.getElementById('donationDate').value,
-        donationTime:document.getElementById('donationTime').value
-    };
+    let products = [];
 
+    addProductBtn.addEventListener('click', function () {
+        productForm.classList.toggle('hidden');
+    });
 
-    const formData = new FormData();
-    formData.append('donor', data.donor);
-    formData.append('category', data.category);
-    formData.append('product', data.product);
-    formData.append('obs', data.obs);
-    formData.append('donationDate', data.donationDate);
-    formData.append('donationTime', data.donationTime);
+    addToListBtn.addEventListener('click', function () {
+        const category = document.getElementById('category').value;
+        const product = document.getElementById('product').value;
+        const qtde = document.getElementById('qtde').value;
 
-    
-    try {
-        const response = await fetch('http://localhost:8080/apis/registerDonation', {
-            method: 'POST',
-            body: formData
-        });
+        if (category && product && qtde) {
+            const productItem = { category, product, qtde };
+            products.push(productItem);
 
-        const result = await response.json();
-        
-        if (response.ok) {
-            document.getElementById('message').innerText = 'Doação registrada com sucesso!';
+            const li = document.createElement('li');
+            li.textContent = `Categoria: ${category}, Produto: ${product}, Quantidade: ${qtde}`;
+            productList.appendChild(li);
+
+            // Limpar os campos
+            document.getElementById('category').value = '';
+            document.getElementById('product').value = '';
+            document.getElementById('qtde').value = '';
         } else {
-            document.getElementById('message').innerText = `Erro: ${result.message}`;
+            alert('Preencha todos os campos do produto');
         }
-    } catch (error) {
-        document.getElementById('message').innerText = `Erro de rede: ${error.message}`;
-    }
+    });
+
+    donationForm.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const donor = document.getElementById('donor').value;
+        const obs = document.getElementById('obs').value;
+        const donationData = document.getElementById('donationData').value;
+        const donationTime = document.getElementById('donationTime').value;
+        const unidade = document.getElementById('unidade').value;
+
+        const baseData = {
+            donor,
+            obs,
+            donationData,
+            donationTime,
+            unidade,
+        };
+
+        for (const productItem of products) {
+            const data = new URLSearchParams(baseData);
+            data.append('category', productItem.category);
+            data.append('product', productItem.product);
+            data.append('qtde', productItem.qtde);
+
+            try {
+                const response = await fetch('http://localhost:8080/apis/register-donation', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: data,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao registrar doação');
+                }
+            } catch (error) {
+                alert(error.message);
+                return;
+            }
+        }
+
+        alert('Doação registrada com sucesso');
+        donationForm.reset();
+        productList.innerHTML = '';
+        products = [];
+    });
 });
