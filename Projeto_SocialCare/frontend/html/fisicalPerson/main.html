@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Pessoa Física</title>
+    <link rel="stylesheet" href="ccsFP.css">
+</head>
+<body>
+<h1>Gerenciamento de Pessoa Física</h1>
+<nav>
+    <button onclick="showForm('formAdd')">Adicionar</button>
+    <button onclick="showForm('formUpdate')">Atualizar</button>
+    <button onclick="showForm('formDelete')">Excluir</button>
+</nav>
+
+<div id="formAdd" class="form-container">
+    <h2>Adicionar Pessoa Física</h2>
+    <form id="addFisicalPersonForm">
+        <label for="nomeAdd" class="required">Nome:</label>
+        <input type="text" id="nomeAdd" name="nome" required maxlength="50" placeholder="Ex: Maria da Silva"><br>
+
+        <label for="logradouroAdd" class="required">Logradouro:</label>
+        <input type="text" id="logradouroAdd" name="logradouro" required maxlength="100" placeholder="Ex: Rua José Bongiovani"><br>
+
+        <label for="bairroAdd" class="required">Bairro:</label>
+        <input type="text" id="bairroAdd" name="bairro" required maxlength="50" placeholder="Ex: Centro"><br>
+
+        <label for="cepAdd" class="required">CEP:</label>
+        <input type="text" id="cepAdd" name="cep" required maxlength="8" placeholder="Ex: 19600000"><br>
+
+        <label for="emailAdd" class="required">Email:</label>
+        <input type="email" id="emailAdd" name="email" required maxlength="100" placeholder="Ex: maria@gmail.com"><br>
+
+        <label for="cpfAdd" class="required">CPF:</label>
+        <input type="text" id="cpfAdd" name="cpf" required maxlength="14" placeholder="Ex: 656.634.770-47"><br>
+
+        <label for="rgAdd" class="required">RG:</label>
+        <input type="text" id="rgAdd" name="rg" required maxlength="9" placeholder="Ex: 178863014"><br>
+
+        <label for="dtnascimentoAdd" class="required">Data de Nascimento:</label>
+        <input type="date" id="dtnascimentoAdd" name="dtnascimento" required maxlength="10" placeholder="Ex: 07/12/2005"><br>
+
+        <label for="cidadeAdd" class="required">Cidade:</label>
+        <select id="cidadeAdd" name="cidade" required class="cidade-select">
+            <!-- Options will be populated dynamically -->
+        </select><br>
+
+        <label for="generoAdd" class="required">Gênero:</label>
+        <select id="generoAdd" name="genero" required class="genero-select">
+            <!-- Options will be populated dynamically -->
+        </select><br>
+
+        <input type="submit" value="Adicionar Pessoa Física">
+    </form>
+</div>
+
+<div id="formUpdate" class="form-container">
+    <h2>Atualizar Pessoa Física</h2>
+    <form id="updateFisicalPersonForm">
+        <label for="cpfUpdate" class="required">CPF:</label>
+        <input type="text" id="cpfUpdate" name="cpf" required maxlength="14" placeholder="Ex: 656.634.770-47"><br>
+        <label for="nomeUpdate" class="required">Nome:</label>
+        <input type="text" id="nomeUpdate" name="nome" required maxlength="50" placeholder="Ex: Maria da Silva"><br>
+        <label for="logradouroUpdate" class="required">Logradouro:</label>
+        <input type="text" id="logradouroUpdate" name="logradouro" required maxlength="100" placeholder="Ex: Rua José Bongiovani"><br>
+        <label for="bairroUpdate" class="required">Bairro:</label>
+        <input type="text" id="bairroUpdate" name="bairro" required maxlength="50" placeholder="Ex: Centro"><br>
+        <label for="cepUpdate" class="required">CEP:</label>
+        <input type="text" id="cepUpdate" name="cep" required maxlength="8" placeholder="Ex: 19600000"><br>
+        <label for="emailUpdate" class="required">Email:</label>
+        <input type="email" id="emailUpdate" name="email" required maxlength="100" placeholder="Ex: maria@gmail.com"><br>
+        <label for="rgUpdate" class="required">RG:</label>
+        <input type="text" id="rgUpdate" name="rg" required maxlength="9" placeholder="Ex: 178863014"><br>
+        <label for="dtnascimentoUpdate" class="required">Data de Nascimento:</label>
+        <input type="date" id="dtnascimentoUpdate" name="dtnascimento" required maxlength="10" placeholder="Ex: 07/12/2005"><br>
+        <label for="cidadeUpdate" class="required">Cidade:</label>
+        <select id="cidadeUpdate" name="cidade" required class="cidade-select">
+            <!-- Options will be populated dynamically -->
+        </select><br>
+        <label for="generoUpdate" class="required">Gênero:</label>
+        <select id="generoUpdate" name="genero" required class="genero-select">
+            <!-- Options will be populated dynamically -->
+        </select><br>
+        <input type="submit" value="Atualizar Pessoa Física">
+    </form>
+</div>
+
+<div id="formDelete" class="form-container">
+    <h2>Excluir Pessoa Física</h2>
+    <form id="deleteFisicalPersonForm">
+        <label for="cpfDelete" class="required">CPF:</label>
+        <input type="text" id="cpfDelete" name="cpf" required maxlength="14" placeholder="Ex: 656.634.770-47"><br>
+        <input type="submit" value="Excluir Pessoa Física">
+    </form>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

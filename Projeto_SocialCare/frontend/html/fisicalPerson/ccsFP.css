@@ -5,6 +5,13 @@ body {
     margin: 0;
     padding: 0;
 }
+.form-container {
+    display: none;
+}
+.required::after {
+    content: " *";
+    color: red;
+}
 
 .container {
     max-width: 800px;
