@@ -128,6 +128,22 @@ function getPersonByCpf(cpf, callback) {
     xhr.send();
 }
 
+// Função para buscar dados e preencher o formulário de atualização
+function searchPersonByCpf() {
+    var cpf = removeCpfMask(document.getElementById('cpfSearchUpdate').value);
+    getPersonByCpf(cpf, function(person) {
+        document.getElementById('nomeUpdate').value = person.nome;
+        document.getElementById('logradouroUpdate').value = person.logradouro;
+        document.getElementById('bairroUpdate').value = person.bairro;
+        document.getElementById('cepUpdate').value = person.cep;
+        document.getElementById('emailUpdate').value = person.email;
+        document.getElementById('rgUpdate').value = person.rg;
+        document.getElementById('dtnascimentoUpdate').value = person.dtnascimento;
+        document.getElementById('cidadeUpdate').value = person.cidade.id;
+        document.getElementById('generoUpdate').value = person.genero.id;
+    });
+}
+
 // Adicionar máscara de CPF nos campos de CPF
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[id^="cpf"]').forEach(input => {
