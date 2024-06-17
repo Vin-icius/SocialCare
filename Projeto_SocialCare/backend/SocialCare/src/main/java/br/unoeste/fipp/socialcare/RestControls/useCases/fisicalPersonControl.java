@@ -47,7 +47,7 @@ public class fisicalPersonControl {
             if (genero == null) {
                 return ResponseEntity.badRequest().body("Gênero não encontrado.");
             }
-
+            pessoa.setAtivo(true);
             pessoa.setCidade(cidade);
             pessoa.setGenero(genero);
 

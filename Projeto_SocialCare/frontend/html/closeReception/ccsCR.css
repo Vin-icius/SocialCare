@@ -77,3 +77,25 @@ button[type="submit"]:hover {
         padding: 10px;
     }
 }
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tabs {
+    display: flex;
+    cursor: pointer;
+}
+
+.tabs div {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+}
+
+.tabs div.active {
+    background-color: #ccc;
+}

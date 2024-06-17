@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ações de Acolhimento</title>
+    <link rel="stylesheet" href="ccsCR.css">
+</head>
+<body>
+<div class="container">
+    <h1>Ações de Acolhimento</h1>
+
+    <div class="tabs">
+        <div class="tab active" data-tab="addActionSection">Encerrando acolhimento</div>
+        <div class="tab" data-tab="deleteActionSection">Deletar acolhimento</div>
+    </div>
+
+    <div id="addActionSection" class="tab-content active">
+        <h2>Encerrando acolhimento</h2>
+        <form id="addActionForm">
+            <fieldset>
+                <legend>Dados do Acolhido</legend>
+                <div>
+                    <label for="cpfAdd">CPF:<span class="required-field">*</span></label>
+                    <input type="text" name="cpf" id="cpfAdd" placeholder="Informe o CPF (apenas números)" required maxlength="14">
+                    <button type="button" id="buscarPessoa">Buscar</button>
+                </div>
+                <div id="dadosPessoa" style="display: none;">
+                    <p><strong>Dados da Pessoa Física:</strong></p>
+                    <p><span id="nome"></span></p>
+                    <p><span id="endereco"></span></p>
+                </div>
+                <div>
+                    <label for="dtacao">Data da Ação:<span class="required-field">*</span></label>
+                    <input type="date" id="dtacao" name="dtacao" required>
+                </div>
+                <div>
+                    <label for="descricao">Descrição:</label><br>
+                    <textarea id="descricao" name="descricao" rows="4" cols="50"></textarea>
+                </div>
+                <div>
+                    <label for="motivo">Motivo:<span class="required-field">*</span></label><br>
+                    <textarea id="motivo" name="motivo" rows="2" cols="50" required></textarea>
+                </div>
+                <div>
+                    <label for="idade">Idade:<span class="required-field">*</span></label>
+                    <input type="number" id="idade" name="idade" required min="1">
+                </div>
+                <button type="submit">Encerrar acolhimento</button>
+            </fieldset>
+        </form>
+        <div id="addActionResponse"></div>
+    </div>
+
+    <div id="deleteActionSection" class="tab-content">
+        <h2>Deletar "Encerrar Acolhimento" feito errado</h2>
+        <form id="deleteActionForm">
+            <label for="cpfDelete">CPF:</label>
+            <input type="text" id="cpfDelete" name="cpf" placeholder="Informe o CPF (apenas números)" required maxlength="14">
+            <button type="submit">Excluir Ação</button>
+        </form>
+        <div id="deleteActionResponse"></div>
+    </div>
+</div>
+
+<script src="teste.js"></script>
+</body>
+</html>
