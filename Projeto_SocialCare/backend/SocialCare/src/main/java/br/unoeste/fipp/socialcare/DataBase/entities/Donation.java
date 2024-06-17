@@ -2,6 +2,8 @@ package br.unoeste.fipp.socialcare.DataBase.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name="doacao")
 public class Donation {
@@ -10,28 +12,24 @@ public class Donation {
     @Column(name = "doa_id")
     private Long id;
     @Column(name = "doa_data")
-    private String data;
+    private LocalDate data;
 
     @Column(name = "doa_observacao")
     private String observacao;
 
     // Foreign Key
     @ManyToOne
-    @JoinColumn(name = "usuario_usu_id")
-    private User usuario;
-    @ManyToOne
-    @JoinColumn(name = "pessoa_pes_id", nullable = false)
+    @JoinColumn(name = "pesf_id", nullable = false)
     private FisicalPerson pessoa;
 
     public Donation() {
-        this(0L,"","",null,null);
+        this(0L,null,"",null);
     }
 
-    public Donation(Long id, String data, String observacao, User usuario, FisicalPerson pessoa) {
+    public Donation(Long id, LocalDate data, String observacao,  FisicalPerson pessoa) {
         this.id = id;
         this.data = data;
         this.observacao = observacao;
-        this.usuario = usuario;
         this.pessoa = pessoa;
     }
 
@@ -43,11 +41,11 @@ public class Donation {
         this.id = id;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
@@ -59,13 +57,6 @@ public class Donation {
         this.observacao = observacao;
     }
 
-    public User getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
-    }
 
     public FisicalPerson getPessoa() {
         return pessoa;

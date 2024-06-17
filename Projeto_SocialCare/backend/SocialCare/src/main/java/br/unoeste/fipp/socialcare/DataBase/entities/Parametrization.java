@@ -38,8 +38,7 @@ public class Parametrization {
     // nome da coluna que vai referenciar, e se pode ou não ser nula, nesse caso não pode ser NOT_NULL
     private City city;
 
-    public Parametrization(Long id, String fantasia, String razao, String cnpj, String logradouro, String bairro, String cep, String email, String site, String logoG, String logoP, City city) {
-        this.id = id;
+    public Parametrization(String fantasia, String razao, String cnpj, String logradouro, String bairro, String cep, String email, String site, String logoG, String logoP, City city) {
         this.fantasia = fantasia;
         this.razao = razao;
         this.cnpj = cnpj;

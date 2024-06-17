@@ -65,6 +65,10 @@ public class parametrizationService {
         return param;
     }
 
+    public Parametrization getParam(){
+        return paramRepo.findAll().getFirst();
+    }
+
     public boolean getByIdB(Long id){
         Parametrization param = paramRepo.findById(id).get();
         return param!=null;

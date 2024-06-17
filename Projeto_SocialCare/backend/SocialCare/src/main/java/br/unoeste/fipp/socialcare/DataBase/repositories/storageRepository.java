@@ -1,6 +1,7 @@
 package br.unoeste.fipp.socialcare.DataBase.repositories;
 
 import br.unoeste.fipp.socialcare.DataBase.entities.Storage;
+import br.unoeste.fipp.socialcare.DataBase.entities.Unity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -8,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface storageRepository extends JpaRepository<Storage, Long> {
+
+    Storage getByUnity(Unity uni);
 
     @Modifying
     @Transactional

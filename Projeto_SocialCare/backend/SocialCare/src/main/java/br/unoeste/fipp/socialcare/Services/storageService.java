@@ -1,6 +1,8 @@
 package br.unoeste.fipp.socialcare.Services;
 
+import br.unoeste.fipp.socialcare.DataBase.entities.FisicalPerson;
 import br.unoeste.fipp.socialcare.DataBase.entities.Storage;
+import br.unoeste.fipp.socialcare.DataBase.entities.Unity;
 import br.unoeste.fipp.socialcare.DataBase.repositories.storageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class storageService {
 
     public void insertInto(Long unidade_uni_id, Long produto_pro_id, int est_quantidade){
         storageRepo.insertInStorage(unidade_uni_id,produto_pro_id,est_quantidade);
+    }
+    public Storage getByUnity(Unity uni){
+        return storageRepo.getByUnity(uni);
     }
 
     public boolean deleteById (Long id) {
