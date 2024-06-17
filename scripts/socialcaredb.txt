@@ -5808,6 +5808,10 @@ CREATE TABLE public.parametrizacao (
   CONSTRAINT fk_parametrizacao_cidade1 FOREIGN KEY (cidade_cid_id) REFERENCES public.cidade (cid_id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
+CREATE SEQUENCE parametrizacao_par_id_seq START 1;
+
+ALTER TABLE parametrizacao ALTER COLUMN par_id SET DEFAULT nextval('parametrizacao_par_id_seq');
+
 INSERT INTO categoria (cat_id,cat_nome) VALUES
 ('1', 'alimento');
 
@@ -5820,10 +5824,18 @@ INSERT INTO produto (pro_id, pro_nome, categoria_cat_id) VALUES
 INSERT INTO produto (pro_id, pro_nome, categoria_cat_id) VALUES
 ('3', 'queijo ralado', '1');
 
+
 INSERT INTO pessoa_fisica(pesf_id,pesf_nome,pesf_logradouro,pesf_bairro,pesf_cep,cidade_cid_id,pesf_email,
 						 pesf_ativo,pesf_cpf,pesf_rg,pesf_dtnascimento,genero_gen_id) VALUES
-('1','Cassia Perego','Avenida da Saudade','Avenida da Saudade','19200000','5217','cassia@gmail.com',TRUE,
+('1','','','','','5217','',TRUE,
+'','','','1');
+
+
+INSERT INTO pessoa_fisica(pesf_id,pesf_nome,pesf_logradouro,pesf_bairro,pesf_cep,cidade_cid_id,pesf_email,
+						 pesf_ativo,pesf_cpf,pesf_rg,pesf_dtnascimento,genero_gen_id) VALUES
+('2','Cassia Perego','Avenida da Saudade','Avenida da Saudade','19200000','5217','cassia@gmail.com',TRUE,
 '44617717846','555365104','28/07/2004','2');
+
 
 INSERT INTO unidade (uni_id,uni_nome,uni_endereco,cidade_cid_id,uni_cep) VALUES
 ('1','Lar dos Meninos','Rua da ONG','5217','19200000');
