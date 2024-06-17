@@ -6,46 +6,99 @@
     <title>Registrar Doação</title>
     <link rel="stylesheet" href="cssRD.css">
 </head>
-<body>
-    <div class="container">
+<body >
+    <div>
+    <div class="navbar">
+        <a href="#" id="btn-registrar">Registrar Doação</a>
+        <a href="#" id="btn-mostrar">Mostrar Doações</a>
+        <a href="#" id="btn-deletar">Deletar Doação</a>
+    </div>
+
+    <div class="container" id="registrar-doacao">
         <h1>Registrar Doação</h1>
         <form id="donation-form">
             <label for="donor">Doador (CPF):</label>
-            <input type="text" id="donor" name="donor" required>
+            <input type="text" id="donor" name="donor" value="446.177.178-46"  oninput="maskCpf(this)">
+            <span id="cpf-error" style="color: red;"></span>
 
             <label for="obs">Observações:</label>
-            <input type="text" id="obs" name="obs">
+            <input type="text" id="obs" name="obs" value="observacao">
 
             <label for="donationData">Data da Doação:</label>
             <input type="date" id="donationData" name="donationData" required>
 
-            <label for="donationTime">Hora da Doação:</label>
-            <input type="time" id="donationTime" name="donationTime" required>
-
             <label for="unidade">Unidade:</label>
-            <input type="text" id="unidade" name="unidade" required>
+            <select id="unidade" name="unidade">
+                <!-- aqui serão inseridos os options pela fetch get all-->
+            </select>
 
             <button type="button" id="add-product-btn">Adicionar Produtos</button>
 
             <div id="product-form" class="hidden">
                 <h2>Adicionar Produto</h2>
                 <label for="category">Categoria do Produto:</label>
-                <input type="text" id="category" name="category">
-
+                <select name="category" id="category">
+                    <!--adicionar as categorias dos produtos -->
+                </select>
+                <br>
                 <label for="product">Produto:</label>
-                <input type="text" id="product" name="product">
-
+                <select name="product" id="product">
+                    <!--adicionar as categorias dos produtos -->
+                </select>
+                <br>
                 <label for="qtde">Quantidade:</label>
-                <input type="number" id="qtde" name="qtde">
+                <input type="number" id="qtde" name="qtde" min="0" value="1">
 
                 <button type="button" id="add-to-list-btn">Adicionar à Lista</button>
             </div>
 
             <ul id="product-list"></ul>
 
-            <button type="submit">Registrar Doação</button>
+            <!-- Modal -->
+            <div id="myModal" class="modal" >
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Digite um número:</p>
+                    <input type="number" id="numeroDigitado">
+                    <button class="salvar" onclick="salvar()">Salvar</button>
+                </div>
+            </div>
+          
+            <button type="submit" onclick="registrarDoacao(event)">Registrar Doação</button>
         </form>
     </div>
+
+    <div class="container" id="mostrar-doacoes">
+        <!-- Conteúdo para mostrar doações -->
+        <h2>Mostrar Doações</h2>
+        <table id="doacoes-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doador</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody id="donationsList"></tbody>
+        </table>
+    </div>
+
+    <div class="container" id="deletar-doacoes">
+        <!-- Conteúdo para deletar doações -->
+        <h2>Deletar Doação</h2>
+        <table id="deletar-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doador</th>
+                    <th>Observações</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="deletarTabela"></tbody>
+        </table>
+    </div>
+</div>
     <script src="jsRD.js"></script>
 </body>
 </html>
